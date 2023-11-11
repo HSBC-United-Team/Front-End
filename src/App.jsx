@@ -1,12 +1,8 @@
-// import "./App.css";
+import HomePage from "./Pages/Homepage";
 
 import Fav from "./Component/pages/FavoritePage";
 
 function App() {
-  return (
-    <>
-      <Fav />
-    </>
-  )
+    return <HomePage />;
 }
 export default App;
