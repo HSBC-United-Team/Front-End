@@ -1,8 +1,8 @@
-function Logo() {
+function Logo({className}) {
     return (
         <div
             id="logo"
-            className="mt-12 md:flex md:justify-center md:items-center md:gap-3 md:mx-auto md:my-auto md:w-[20%]"
+            className={`${className} mt-12 md:flex md:justify-center md:items-center md:gap-3 md:mx-auto md:my-auto md:w-[20%]`}
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
