@@ -1,6 +1,6 @@
-import Logo from "./Logo";
-import Navbar from "../Navbar/Navbar";
-import SearchBox from "./SearchBox";
+import Logo from "../molecules/Logo";
+import Navbar from "./Navbar";
+import SearchBox from "../molecules/SearchBox";
 
 function Header() {
     return (

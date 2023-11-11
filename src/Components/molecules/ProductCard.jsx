@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import BtnAddProduct from "./BtnAddProdcut";
+import BtnAddProduct from "../atoms/BtnAddProdcut";
 
 function ProductCard(props) {
     const product = props.product;
