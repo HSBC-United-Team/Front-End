@@ -1,6 +1,4 @@
-import HomePage from "./Pages/Homepage";
-
-import Fav from "./Component/pages/FavoritePage";
+import HomePage from "../src/Components/Pages/Homepage";
 
 function App() {
     return <HomePage />;

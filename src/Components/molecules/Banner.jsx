@@ -15,21 +15,21 @@ function Banner() {
             <Slider {...settings}>
                 <div>
                     <img
-                        src="../../src/banner.jpeg"
+                        src="public\images\banner.jpeg"
                         alt="Credit to Joshua Earle on Unsplash"
                         className="max-w-full mx-auto"
                     />
                 </div>
                 <div>
                     <img
-                        src="../../src/banner.jpeg"
+                        src="public\images\banner.jpeg"
                         alt="Credit to Joshua Earle on Unsplash"
                         className="max-w-full mx-auto"
                     />
                 </div>
                 <div>
                     <img
-                        src="../../src/banner.jpeg"
+                        src="public\images\banner.jpeg"
                         alt="Credit to Joshua Earle on Unsplash"
                         className="max-w-full mx-auto"
                     />

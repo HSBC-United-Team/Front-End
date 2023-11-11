@@ -1,6 +1,6 @@
-import Banner from "../Components/Banner";
-import Header from "../Components/Header/Header";
-import ProductList from "../Components/ProductList/ProductList";
+import Banner from "../molecules/Banner";
+import Header from "../organisms/Header";
+import ProductList from "../organisms/ProductList";
 
 function HomePage() {
     return (
