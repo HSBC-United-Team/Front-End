@@ -10,7 +10,7 @@ function Fav() {
     return (
         <>
             <div
-                className="fixed text-center w-full bg-white md:justify-center md:flex md:mx-auto  md:px-12 md:py-2 md:items-center flex-around"
+                className="fixed text-center w-full bg-white md:justify-center md:flex md:mx-auto  md:px-12 md:py-4 md:items-center flex-around"
                 style={{
                     boxShadow: "-12px 0px 37px 0px rgba(230, 235, 243, 0.5)",
                 }}
