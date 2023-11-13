@@ -9,12 +9,18 @@ function Fav() {
     products
     return (
         <>
-            <div
+            {/* <div
                 className="fixed text-center w-full bg-white md:justify-center md:flex md:mx-auto  md:px-12 md:py-4 md:items-center flex-around"
                 style={{
                     boxShadow: "-12px 0px 37px 0px rgba(230, 235, 243, 0.5)",
                 }}
-            >
+            > */}
+            <div
+            className="md:flex md:mx-6 md:my-12 md:items-center"
+            style={{
+                boxShadow: "-12px 0px 37px 0px rgba(230, 235, 243, 0.5)",
+            }}
+        >
                 <Logo className=" hidden " />
                 <h1 className=" text-center font-bold my-4 text-[30px] md:w-[35%] ">Favorite</h1>
                 <hr className="md:hidden border" />
