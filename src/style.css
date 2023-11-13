@@ -1,0 +1,67 @@
+/* .login-section,
+.signup-section {
+  transform: translateY(100%);
+  transition: transform 0.5s ease-in-out;
+} */
+
+/* .login-section.active,
+.signup-section.active {
+  transform: translateY(0);
+} */
+
+.background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("./assets/background.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1;
+  transform: rotate(142deg);
+}
+
+.main-section-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 30%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 2%;
+}
+
+#main-section {
+  text-align: left;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+#main-section h1 {
+  font-size: 3.6rem;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+#main-section p {
+  font-size: 1.6rem;
+  margin-bottom: 2rem;
+}
+
+.signup-link {
+  color: #2c2c2c;
+  font-weight: bold;
+}
+
+.poppins-font {
+  font-family: "Poppins", sans-serif;
+}
+
+.contrast-text {
+  color: #2c2c2c;
+  font-weight: bold;
+}
