@@ -1,8 +1,23 @@
 import PropTypes from "prop-types";
 import BtnAddProduct from "../atoms/BtnAddProdcut";
+import { UseCartData } from "../../stores/useCartData";
 
 function ProductCard(props) {
-    const product = props.product;
+    const { product } = props;
+    const {addProductToCart,increaseProductAmount}=UseCartData((UseCart)=>{
+    return{
+
+        addProductToCart:UseCart.addProductToCart,
+        increaseProductAmount:UseCart.increaseProductAmount
+    }}
+    )
+    // const { addProductToCart } = UseCartData();
+    const handleAddToCart = () => {
+        addProductToCart(
+          product
+        );
+      };
+
 
     return (
         <>
@@ -23,7 +38,7 @@ function ProductCard(props) {
                         <span className="harga font-semibold">
                             {product.price}
                         </span>
-                        <BtnAddProduct />
+                        <BtnAddProduct onClick={handleAddToCart} />
                     </div>
                 </div>
             </div>
