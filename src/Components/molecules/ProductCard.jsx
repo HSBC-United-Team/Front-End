@@ -1,5 +1,7 @@
 import PropTypes from "prop-types";
 import BtnAddProduct from "../atoms/BtnAddProdcut";
+import axios from "axios";
+import { useState, useEffect } from "react";
 import { UseCartData } from "../../stores/useCartData";
 
 function ProductCard(props) {
@@ -8,7 +10,7 @@ function ProductCard(props) {
     return{
 
         addProductToCart:UseCart.addProductToCart,
-        increaseProductAmount:UseCart.increaseProductAmount
+        increaseProductAmount:useCart.increaseProductAmount
     }}
     )
     // const { addProductToCart } = UseCartData();
