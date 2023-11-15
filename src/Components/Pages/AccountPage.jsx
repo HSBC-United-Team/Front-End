@@ -1,19 +1,26 @@
-import ProfileComponent from "../../component+s/ProfileComponent";
-import BodyProfile from "../../component+s/BodyProfile";
-import ButtonProfile from "../../component+s/ButtonProfile";
-import Header from "../organisms/Header";
 
-function ProfilePage() {
+import React from 'react';
+import Header from '../organisms/Header';
+import BodyAkun from '../organisms/BodyAkun';
+import ProfileAccount from '../organisms/ProfileAccount';
+function AccountPage() {
   return (
     <main className="mt- m-20 md:mt-0">
       <section>
         <Header />
-        <ProfileComponent />
-        <BodyProfile />
-        <ButtonProfile />
+        <ProfileAccount/>
+        <BodyAkun />
       </section>
     </main>
   );
 }
 
-export default ProfilePage;
+export default AccountPage;
+
+
+
+
+
+
+
+
