@@ -10,8 +10,8 @@ function App() {
         <>
             {/* <LandingPage />
             <LoginPage />
-            <SignUpPage />
-            <HomePage /> */}
+            <SignUpPage /> */}
+            {/* <HomePage /> */}
             {/* <Fav /> */}
             <Cart/>
         </>

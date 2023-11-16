@@ -2,11 +2,30 @@
 import BtnGreen from "../atoms/BtnGreen";
 import Logo from "../molecules/Logo";
 import Navbar from "../organisms/Navbar";
-import products from "../../../public/data/productList";
+// import products from "../../../public/data/productList";
+import { UseCartData } from "../../stores/useCartData";
 
 
 function Cart() {
-    products
+
+    const { cartData, increaseProductAmount, decreaseProductAmount,removeProductInCart } = UseCartData((state) => ({
+        cartData: state.cartData,
+        increaseProductAmount: state.increaseProductAmount,
+        decreaseProductAmount: state.decreaseProductAmount,
+        removeProductInCart:state.removeProductInCart
+    }));
+    console.log(cartData)
+    const products = cartData
+    const handleInc = (product) => {
+        increaseProductAmount(product)
+    }
+    const handleDec = (product) => {
+        decreaseProductAmount(product)
+    }
+    const handleRem = (product) => {
+        removeProductInCart(product)
+    }
+
     return (
         <>
             <div
@@ -21,44 +40,46 @@ function Cart() {
                 <Navbar />
             </div>
             <div className="flex flex-col py-24 pb-32    px-[5%]">
-                {products.map((prod) =>
+                {products.map((product) =>
                     <>
                         <div className="flex justify-between h-[114px] ">
                             <div className="grid grid-cols-3 w-[100%]  justify-arround ">
-                                <div className=" flex justify-center items-center ">
-                                    <img className=" object-contain  w-[100px] h-[100px]" src={prod.image} alt="img" />
+                                <div className=" flex justify-start items-center ">
+                                <button onClick={()=>handleRem()} className="mr-10 w-8"><img src="/images/svg/exit-full-screen.png" alt="" /></button>
+                                    <img className=" object-contain  w-[100px] h-[100px]" src={product.productImage} alt="img" />
                                 </div>
                                 <div className=" flex flex-col justify-center ">
-                                    <h3>{prod.name}</h3>
-                                    <p>{prod.weight}</p>
+                                    <h3>{product.productName}</h3>
+                                    <p>{product.productWeight}</p>
                                     <div className="flex">
-                                    
-                                    
-                                    <button className="rounded-xl border border-gray-200 w-[45.67px] h-[45.668px] px-2 py-2 text-grey-300 bg-white-300 text-lg">-</button>
-                                    <span className="px-2 py-2">1</span>
-                                    <button className="rounded-xl border border-gray-200 w-[45.67px] h-[45.668px] px-2 py-2 text-grey-300 bg-white-300 text-lg">+</button>
-                                 
+
+
+                                        <button onClick={() => handleDec(product)} className="rounded-xl border border-gray-200 w-[45.67px] h-[45.668px] px-2 py-2 text-grey-300 bg-white-300 text-lg">-</button>
+                                        <span className="px-2 py-2">{product.productAmount}</span>
+                                        <button onClick={() => handleInc(product)} className="rounded-xl border border-gray-200 w-[45.67px] h-[45.668px] px-2 py-2 text-grey-300 bg-white-300 text-lg">+</button>
+                                   
+
                                     </div>
-                                    
-                                   
-                                   
+
+
+
                                 </div>
                             </div>
-                               <div className="flex items-end justify-end mb-6">
-                                        {prod.price}
-                                    </div>
+                            <div className="flex items-end justify-end mb-6">
+                                <span>Price </span>{product.productPrice}
+                            </div>
                         </div>
                         <hr className="md:hidden border" />
                     </>
                 )}
             </div>
             <div >
-            <BtnGreen>
-                <div>
-                <span className="w-[134.125px] h-3.5 shrink-0 text-[#FCFCFC] text-lg not-italic font-semibold leading-[18px]">Go to Checkout</span>
-                <span className="rounded-md bg-green-500 text-[#FCFCFC] text-xs not-italic font-semibold leading-[18px]">PPPPP</span>
-                </div>
-            </BtnGreen>
+                <BtnGreen>
+                    <div>
+                        <span className="w-[134.125px] h-3.5 shrink-0 text-[#FCFCFC] text-lg not-italic font-semibold leading-[18px]">Go to Checkout</span>
+                        {/* <span className="rounded-md bg-green-500 text-[#FCFCFC] text-xs not-italic font-semibold leading-[18px]">PPPPP</span> */}
+                    </div>
+                </BtnGreen>
             </div>
         </>
     )
