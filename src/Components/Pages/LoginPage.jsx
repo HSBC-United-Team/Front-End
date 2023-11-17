@@ -1,13 +1,36 @@
+import { useState } from "react";
 import "../../style.css";
 import { useNavigate } from "react-router-dom";
+import { useUserInfo } from "../../stores/useUserInfo";
 function LoginPage() {
     const navigate = useNavigate();
+    const { setUserInfo } = useUserInfo((state) => {
+        return { setUserInfo: state.setUserInfo };
+    });
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
 
-    const handleLogin = (event) => {
+    const handleLogin = async (event) => {
         event.preventDefault();
-        const username = event.target[0].value;
-        const password = event.target[1].value;
-        console.log(username, password);
+        try {
+            const response = await fetch("https://dummyjson.com/auth/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, password }),
+            });
+            if (response.ok) {
+                const user = await response.json();
+                setUserInfo({ ...user });
+                setUsername("");
+                setPassword("");
+                navigate("/home");
+                console.log("Login successful:", user);
+            } else {
+                console.log("Invalid username or password");
+            }
+        } catch (error) {
+            console.error("Error message:", error.message);
+        }
     };
     return (
         <>
@@ -28,6 +51,8 @@ function LoginPage() {
                             placeholder="Username"
                             className="mb-4 p-2 border rounded w-full"
                             required=""
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
                         />
                         <input
                             type="password"
@@ -35,6 +60,8 @@ function LoginPage() {
                             placeholder="Password"
                             className="mb-4 p-2 border rounded w-full"
                             required=""
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                         <button
                             type="submit"
