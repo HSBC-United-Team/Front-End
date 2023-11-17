@@ -1,4 +1,4 @@
-import { crete } from "zustand";
+import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 const UserInfo = (set) => ({
@@ -14,4 +14,4 @@ const UserInfo = (set) => ({
     },
 });
 
-export const useUserInfo = crete(persist(UserInfo), { name: "user-info" });
+export const useUserInfo = create(persist(UserInfo, { name: "user-info" }));

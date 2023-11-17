@@ -5,6 +5,7 @@ import LandingPage from "./Components/Pages/LandingPage";
 import LoginPage from "./Components/Pages/LoginPage";
 import SignUpPage from "./Components/Pages/SignUpPage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import PrivateRoute from "./utils/PrivateRoute";
 
 function App() {
     return (
@@ -13,9 +14,11 @@ function App() {
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/signup" element={<SignUpPage />} />
-                <Route path="/home" element={<HomePage />} />
-                <Route path="/cart" element={<Cart />} />
-                <Route path="/favorite" element={<Fav />} />
+                <Route element={<PrivateRoute />}>
+                    <Route path="/home" element={<HomePage />} />
+                    <Route path="/cart" element={<Cart />} />
+                    <Route path="/favorite" element={<Fav />} />
+                </Route>
             </Routes>
         </Router>
     );
