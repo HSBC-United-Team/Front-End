@@ -41,9 +41,14 @@ const UseCart = (set) => ({
       return { cartData: updatedCartData };
     });
   },
-  increaseProductAmount: (productIndex) => {
+  increaseProductAmount: (product) => {
+    console.log('tombol + di akses')
     set((state) => {
       const updatedCartData = [...state.cartData];
+      const productIndex = updatedCartData.findIndex(
+        (prod) => prod.productName===product.productName
+      );
+      console.log(productIndex)
       updatedCartData[productIndex] = {
         ...updatedCartData[productIndex],
         productAmount: state.cartData[productIndex].productAmount + 1,
@@ -51,13 +56,22 @@ const UseCart = (set) => ({
       return { cartData: updatedCartData };
     });
   },
-  decreaseProductAmount: (productIndex) => {
+  decreaseProductAmount: (product) => {
+    console.log('tombol - di akses')
     set((state) => {
       const updatedCartData = [...state.cartData];
+      const productIndex = updatedCartData.findIndex(
+        (prod) => prod.productName===product.productName
+      );
+      console.log(productIndex)
+      if(product.productAmount>1){
       updatedCartData[productIndex] = {
         ...updatedCartData[productIndex],
         productAmount: state.cartData[productIndex].productAmount - 1,
-      };
+      };}else{
+        alert("Jumlah product telah sampai pada batas MINIMUM")
+  
+      }
       return { cartData: updatedCartData };
     });
   },
