@@ -1,6 +1,7 @@
 import BtnAddProduct from "../atoms/BtnAddProdcut";
 import axios from "axios";
 import { useState, useEffect } from "react";
+// import { UseCartData } from "../../stores/useCartData";
 
 function ProductCard() {
   const [productList, setProductList] = useState([]);
