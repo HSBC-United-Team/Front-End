@@ -7,7 +7,7 @@ const UseCart = (set) => ({
         set((state) => {
             const updatedCartData = [...state.cartData];
             const productIndex = updatedCartData.findIndex(
-                (prod) => prod.productName === product.title
+                (prod) => prod.productName === product.name
             );
             if (productIndex !== -1) {
                 // state.increaseProductAmount(productIndex);
@@ -16,11 +16,11 @@ const UseCart = (set) => ({
             } else {
                 updatedCartData.push({
                     id: product.id,
-                    productName: product.title,
-                    productDescription: product.category,
+                    productName: product.name,
+                    productDescription: product.description,
                     productAmount: 1,
                     productPrice: product.price,
-                    productImage: product.thumbnail,
+                    productImage: product.image,
                 });
                 return { cartData: updatedCartData };
             }

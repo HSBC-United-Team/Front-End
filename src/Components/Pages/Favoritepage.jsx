@@ -1,37 +1,15 @@
 import { IconBackArrow } from "../../../public/icons";
 import BtnGreen from "../atoms/BtnGreen";
-import Logo from "../molecules/Logo";
-import Navbar from "../organisms/Navbar";
+import { Navbar2 } from "../organisms/Navbar2";
 import products from "/public/data/productList";
 
 function Fav() {
     products;
     return (
         <>
-            {/* <div
-                className="fixed text-center w-full bg-white md:justify-center md:flex md:mx-auto  md:px-12 md:py-4 md:items-center flex-around"
-                style={{
-                    boxShadow: "-12px 0px 37px 0px rgba(230, 235, 243, 0.5)",
-                }}
-            > */}
-            <div
-                className="md:flex md:mx-6 md:my-12 md:items-center"
-                style={{
-                    boxShadow: "-12px 0px 37px 0px rgba(230, 235, 243, 0.5)",
-                }}
-            >
-                <Logo className=" hidden " />
-                <h1 className=" text-center font-bold my-4 text-[30px] md:w-[35%] ">
-                    Favorite
-                </h1>
-                <hr className="md:hidden border" />
-                <Navbar />
-            </div>
-            {products.map((product) => (
-                <div
-                    className="flex flex-col py-24 pb-32    px-[5%]"
-                    key={product.id}
-                >
+            <Navbar2>Favorite</Navbar2>
+            <div className="flex flex-col py-24 pb-32    px-[5%]">
+                {products.map((product) =>
                     <>
                         <div className="flex justify-between h-[114px] items-center  ">
                             <div className="grid grid-cols-2 w-[60%]  justify-arround">
@@ -54,8 +32,8 @@ function Fav() {
                         </div>
                         <hr className="md:hidden border" />
                     </>
-                </div>
-            ))}
+                )}
+            </div>
             <BtnGreen>Add All To Cart</BtnGreen>
         </>
     );
