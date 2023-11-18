@@ -50,13 +50,13 @@ function Cart() {
         <>
             <Navbar2>My Cart</Navbar2>
 
-            <div className="flex flex-col py-28 pb-32    px-[5%]">
+            <div className="flex flex-col md:py-28 py-14 pb-32  gap-7  px-[5%]">
                 {products.map((product) => (
                     <>
-                        <div className="flex justify-between h-[114px] ">
-                            <div className="grid grid-cols-3 w-[100%]  justify-arround ">
-                                <div className=" flex justify-start items-center ">
-                                    <button onClick={() => handleRem(product)} className="mr-10 w-8">
+                        <div className="flex justify-between md:h-[114px] h-auto items-center  ">
+                            <div className="flex md:flex-row flex-col w-[60%]   justify-arround">
+                                <div className=" flex justify-center md:justify-start items-center">
+                                    <button onClick={() => handleRem(product)} className="mr-10 w-8 shrink-0">
                                         <img src="/images/svg/exit-full-screen.png" alt="" />
                                     </button>
                                     <img
