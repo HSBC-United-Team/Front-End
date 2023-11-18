@@ -44,7 +44,7 @@ const CheckoutModal = ({
         id="shippingForm"
         className="fixed top-0 left-0 w-full h-full bg-gray-700 bg-opacity-80 flex justify-center items-center"
       >
-        <div className="bg-white p-8 rounded-md shadow-md w-2/3">
+        <div className="bg-white p-8 rounded-md shadow-md w-2/3  ">
           <h1 className="text-3xl mb-6 text-center font-bold text-green-600">
             <i className="fas fa-shipping-fast"></i> Detail Pengiriman
           </h1>
