@@ -4,52 +4,42 @@ import { useState, useEffect } from "react";
 import { UseCartData } from "../../stores/useCartData";
 import { useFavProducts } from "../../stores/useFavProducts";
 import { IconPlus } from "../../../public/icons";
-
-// import { UseCartData } from "../../stores/useCartData";
-
 function ProductCard() {
-  const [productList, setProductList] = useState([]);
   const { addProductToCart } = UseCartData((UseCart) => {
     return {
       addProductToCart: UseCart.addProductToCart
-    }})
-    const handleAddToCarts = (product) => {
-      addProductToCart(
-        product
-      );
-    };
-  const { addFavProduct } = useFavProducts((UseFav) => {
+    }
+  })
+  const handleAddToCarts = (product) => {
+    addProductToCart(
+      product
+    );
+  };
+  const { addFavProduct,favProducts } = useFavProducts((UseFav) => {
     return {
-      addFavProduct: UseFav.addFavProduct
-    }})
-    const handleFav = (product) => {
-      addFavProduct(
-        product
-      );
-    };
-// mengganti image icon fav 
-const [imageSrc, setImageSrc] = useState("/images/svg/heart (1).png")
-const [isImageChanged, setIsImageChanged] = useState(false);
-const handleImageChange = () => {
-
-  if (!isImageChanged) {
-    setImageSrc("/images/svg/heart (2).png");
-    setIsImageChanged(true);
-  } else {
-    setImageSrc("/images/svg/heart (1).png");
-    setIsImageChanged(false);
-  }
-};
-const handleBothFunctions = (product) => {
-  handleImageChange(product.id);
-  handleFav(product);
-};
+      addFavProduct: UseFav.addFavProduct,
+      favProducts:UseFav.favProducts
+    }
+  })
+  const handleFav = (product) => {
+    addFavProduct(
+      product
+    );
+  };
+  const handleBothFunctions = (product) => {
+    handleFav(product);
+  };
+  const [productList, setProductList] = useState([]);
 
   useEffect(() => {
     axios
       .get("https://65582f239c0b643cb2d6e01b.mockapi.io/products")
       .then((res) => {
-        setProductList(res.data);
+        const updatedProducts = res.data.map((product) => ({
+          ...product,
+          isFavorite:false
+        }));
+        setProductList(updatedProducts);
       });
   }, []);
   return (
@@ -59,7 +49,7 @@ const handleBothFunctions = (product) => {
       ) : (
         productList.map((product) => {
           return (
-            <>
+            <div key={product.id}>
               <div className="flex relative flex-col justify-beetwen p-4 h-64 border-[1px] border-[#E2E2E2] rounded-2xl hover:scale-105 hover:border-green-800">
                 <button className="flex h-[55%] mx-auto my-auto">
                   <img
@@ -79,16 +69,25 @@ const handleBothFunctions = (product) => {
                     </span>
                     <BtnAddProduct className="absolute top-2 right-2 " onClick={() =>
                       handleBothFunctions(product)
-                    } ><img className="w-[26px] h-[26px]" src={imageSrc} alt="" /></BtnAddProduct>
+                    } ><img
+                        className="w-[26px] h-[26px]"
+                        src={
+                          favProducts.find((fav) => fav.productName === product.name)
+                            ? "/images/svg/heart (2).png"
+                            : "/images/svg/heart (1).png"
+                        }
+                        alt=""
+                      />
+                    </BtnAddProduct>
                     <div className="flex gap-2 items-end justify-center">
                       <BtnAddProduct onClick={() =>
                         handleAddToCarts(product)
-                      } ><IconPlus/></BtnAddProduct>
+                      } ><IconPlus /></BtnAddProduct>
                     </div>
                   </div>
                 </div>
               </div>
-            </>
+            </div>
           );
         })
       )}

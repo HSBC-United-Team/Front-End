@@ -29,10 +29,17 @@ const UseCart = (set) => ({
             }
         });
     },
-    removeProductInCart: (productIndex) => {
+    removeProductInCart: (cartData) => {
         set((state) => {
             const updatedCartData = [...state.cartData];
-            updatedCartData.splice(productIndex, 1);
+            const id=cartData.id
+            const productIndex = updatedCartData.findIndex(
+                (prod) => prod.id === id
+            );
+            if(productIndex !=-1){
+
+                updatedCartData.splice(productIndex,1);
+            }
             return { cartData: updatedCartData };
         });
     },

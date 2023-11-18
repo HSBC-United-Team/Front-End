@@ -15,9 +15,14 @@ const CheckoutModal = ({
     handleCityChange,
 }) => {
     const navigate = useNavigate();
-    const { removeAllProductsInCart } = UseCartData((state) => {
-        return { removeAllProductsInCart: state.removeAllProductsInCart };
+    const { removeAllProductsInCart,cartData } = UseCartData((state) => {
+        return { removeAllProductsInCart: state.removeAllProductsInCart,
+          cartData:state.cartData };
     });
+    const totalPrice = cartData.reduce((total, product) => {
+      return total + parseFloat(product.productAmount*product.productPrice);
+    }, 0);
+
     const [totalBiaya, setTotalBiaya] = React.useState("");
 
     const handlePesanClick = (e) => {
@@ -177,7 +182,7 @@ const CheckoutModal = ({
                             </label>
                             <div className="relative">
                                 <span className="text-gray-700 absolute inset-y-0 left-0 flex items-center pl-3">
-                                    Rp
+                                    ${totalPrice.toLocaleString().substring(0,5)}
                                 </span>
                                 <input
                                     type="text"

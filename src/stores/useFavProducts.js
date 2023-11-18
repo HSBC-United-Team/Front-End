@@ -4,18 +4,13 @@ import { persist } from "zustand/middleware";
 const useFav = (set) => ({
   favProducts: [],
   addFavProduct: (product) => {
-    console.log("Connect");
     set((state) => {
       const updatedFavProducts = [...state.favProducts];
-      console.log(updatedFavProducts);
       const productIndex = updatedFavProducts.findIndex(
         (prod) => prod.productName === product.name
       );
-      console.log("index ditemukan" + productIndex);
       if (productIndex !== -1) {
-        // state.increaseProductAmount(productIndex);
         updatedFavProducts.splice(productIndex, 1);
-        console.log("product sudah ada");
         return { favProducts: updatedFavProducts };
       } else {
         updatedFavProducts.push({
@@ -25,17 +20,23 @@ const useFav = (set) => ({
           productAmount: 1,
           productPrice: product.price,
           productImage: product.image,
+          isFavorite:!product.isFavorite
         });
-        console.log("product baru di tambahkan");
         return { favProducts: updatedFavProducts };
       }
     });
   },
-  removeFavProduct: (productIndex) => {
+  removeFavProduct: (favProducts) => {
     set((state) => {
-      const updatedFavProducts = [...state.favProducts];
-      updatedFavProducts.splice(productIndex, 1);
-      return { favProducts: [...updatedFavProducts] };
+        const updateFav = [...state.favProducts];
+        const productName=favProducts.id
+        const productIndex = updateFav.findIndex(
+            (prod) => prod.id===productName
+        );
+        if (productIndex !== -1) {
+            updateFav.splice(productIndex, 1);
+          }
+        return { favProducts: updateFav };
     });
   },
 });
