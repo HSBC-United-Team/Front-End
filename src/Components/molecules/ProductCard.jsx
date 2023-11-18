@@ -6,9 +6,11 @@ function ProductCard() {
   const [productList, setProductList] = useState([]);
 
   useEffect(() => {
-    axios.get("https://dummyjson.com/products").then((res) => {
-      setProductList(res.data.products);
-    });
+    axios
+      .get("https://65582f239c0b643cb2d6e01b.mockapi.io/products")
+      .then((res) => {
+        setProductList(res.data);
+      });
   }, []);
   return (
     <>
@@ -22,15 +24,13 @@ function ProductCard() {
                 <button className="flex h-[55%] mx-auto my-auto">
                   <img
                     className="max-h-full mx-auto my-auto"
-                    src={product.thumbnail}
+                    src={product.image}
                     alt="Product Picture"
                   />
                 </button>
                 <div className=" h-[45%]">
-                  <h3 className="nama font-semibold">{product.title}</h3>
-                  <p className="text-[#7C7C7C] text-[14px]">
-                    {product.category}
-                  </p>
+                  <h3 className="nama font-semibold">{product.name}</h3>
+                  <p className="text-[#7C7C7C] text-[14px]">{product.weight}</p>
                   <div className="flex justify-between items-end">
                     <span className="harga font-semibold">
                       ${product.price}
