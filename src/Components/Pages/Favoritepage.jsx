@@ -17,13 +17,13 @@ function Fav() {
         <>
             <Navbar2>Favorite</Navbar2>
 
-            <div className="flex flex-col py-28 pb-32    px-[5%]">
+            <div className="flex flex-col py-14 md:py-28 pb-32    px-[5%]">
                 {favProducts.map((product) =>
                     <>
-                        <div className="flex justify-between h-[114px] items-center  ">
-                            <div className="grid grid-cols-2 w-[60%]  justify-arround">
-                                <div className=" flex justify-start items-center">
-                                    <button onClick={()=>handlerem(product)} className="mr-10 w-8">
+                        <div className="flex justify-between md:h-[114px] h-auto items-center  ">
+                            <div className="flex md:flex-row flex-col w-[60%]   justify-arround">
+                                <div className=" flex justify-center md:justify-start items-center">
+                                    <button onClick={()=>handlerem(product)} className="mr-10 w-8 shrink-0">
                                         <img src="/images/svg/exit-full-screen.png" alt="" />
                                     </button>
                                     <img
@@ -32,7 +32,7 @@ function Fav() {
                                         alt="img"
                                     />
                                 </div>
-                                <div className="font-bold flex flex-col justify-center ">
+                                <div className="font-bold flex flex-col justify-center items-center ">
                                     <h3>{product.productName}</h3>
                                     <p>{product.productWeight}</p>
                                 </div>
