@@ -1,10 +1,29 @@
 import BtnAddProduct from "../atoms/BtnAddProdcut";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { UseCartData } from "../../stores/useCartData";
+// import { IconPlus } from "../../../public/icons";
 // import { UseCartData } from "../../stores/useCartData";
 
 function ProductCard() {
   const [productList, setProductList] = useState([]);
+  const { addProductToCart } = UseCartData((UseCart) => {
+    return {
+
+      addProductToCart: UseCart.addProductToCart
+    }
+  }
+  )
+
+  const handleAddToCarts = (product) => {
+
+    addProductToCart(
+      product
+    );
+
+
+  };
+
 
   useEffect(() => {
     axios
@@ -36,7 +55,16 @@ function ProductCard() {
                     <span className="harga font-semibold">
                       ${product.price}
                     </span>
-                    <BtnAddProduct />
+                    <BtnAddProduct className="absolute top-2 right-2 " onClick={() =>
+                      // remove
+                      handleAddToCarts(product)
+                    } ><img className="w-[26px] h-[26px]" src="/images/svg/heart (1).png" alt="" /></BtnAddProduct>
+                    <div className="flex gap-2 items-end justify-center">
+                      <BtnAddProduct onClick={() =>
+                        // remove
+                        handleAddToCarts(product)
+                      } ></BtnAddProduct>
+                    </div>
                   </div>
                 </div>
               </div>
