@@ -3,8 +3,22 @@ import Logo from "../molecules/Logo";
 import Navbar from "../organisms/Navbar";
 // import products from "../../../public/data/productList";
 import { UseCartData } from "../../stores/useCartData";
+import { useCartState } from "../atoms/CartState";
+import CheckoutModal from "../organisms/CheckoutModals";
 
 function Cart() {
+  const {
+    showModal,
+    openModal,
+    closeModal,
+    selectedProvince,
+    selectedCity,
+    data,
+    paymentMethods,
+    handleProvinceChange,
+    handleCityChange,
+  } = useCartState();
+
   const {
     cartData,
     increaseProductAmount,
@@ -16,14 +30,19 @@ function Cart() {
     decreaseProductAmount: state.decreaseProductAmount,
     removeProductInCart: state.removeProductInCart,
   }));
+
   console.log(cartData);
+
   const products = cartData;
+
   const handleInc = (product) => {
     increaseProductAmount(product);
   };
+
   const handleDec = (product) => {
     decreaseProductAmount(product);
   };
+
   const handleRem = (product) => {
     removeProductInCart(product);
   };
@@ -88,14 +107,24 @@ function Cart() {
         ))}
       </div>
       <div>
-        <BtnGreen>
+        <BtnGreen onClick={openModal}>
           <div>
             <span className="w-[134.125px] h-3.5 shrink-0 text-[#FCFCFC] text-lg not-italic font-semibold leading-[18px]">
-              Go to Checkout
+              Checkout Pesanan
             </span>
-            {/* <span className="rounded-md bg-green-500 text-[#FCFCFC] text-xs not-italic font-semibold leading-[18px]">PPPPP</span> */}
           </div>
         </BtnGreen>
+
+        <CheckoutModal
+          showModal={showModal}
+          closeModal={closeModal}
+          selectedProvince={selectedProvince}
+          selectedCity={selectedCity}
+          data={data}
+          paymentMethods={paymentMethods}
+          handleProvinceChange={handleProvinceChange}
+          handleCityChange={handleCityChange}
+        />
       </div>
     </>
   );
