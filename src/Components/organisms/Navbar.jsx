@@ -28,7 +28,7 @@ function Navbar() {
                         <IconFavorite />
                         Favorite
                     </NavList>
-                    <NavList>
+                    <NavList src={"/profile"}>
                         <IconAccount />
                         Account
                     </NavList>
