@@ -1,14 +1,12 @@
-
-import React from 'react';
-import Header from '../organisms/Header';
-import BodyAkun from '../organisms/BodyAkun';
-import ProfileAccount from '../organisms/ProfileAccount';
+import Header from "../organisms/Header";
+import BodyAkun from "../organisms/BodyAkun";
+import ProfileAccount from "../organisms/ProfileAccount";
 function AccountPage() {
   return (
     <main className="mt- m-20 md:mt-0">
       <section>
         <Header />
-        <ProfileAccount/>
+        <ProfileAccount />
         <BodyAkun />
       </section>
     </main>
@@ -16,11 +14,3 @@ function AccountPage() {
 }
 
 export default AccountPage;
-
-
-
-
-
-
-
-
