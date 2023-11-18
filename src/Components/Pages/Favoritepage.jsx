@@ -2,6 +2,8 @@ import { IconBackArrow } from "../../../public/icons";
 import { useFavProducts } from "../../stores/useFavProducts";
 import BtnGreen from "../atoms/BtnGreen";
 import { Navbar2 } from "../organisms/Navbar2";
+import Logo from "../molecules/Logo";
+import Navbar from "../organisms/Navbar";
 
 
 function Fav() {
@@ -13,7 +15,8 @@ function Fav() {
     return (
         <>
             <Navbar2>Favorite</Navbar2>
-            <div className="flex flex-col py-24 pb-32    px-[5%]">
+            
+            <div className="flex flex-col py-28 pb-32    px-[5%]">
                 {favProducts.map((product) =>
                     <>
                         <div className="flex justify-between h-[114px] items-center  ">

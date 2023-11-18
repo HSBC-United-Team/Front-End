@@ -3,6 +3,9 @@ import { persist } from "zustand/middleware";
 
 const UseCart = (set) => ({
     cartData: [],
+    removeAllProductsInCart: () => {
+        set({ cartData: [] });
+    },
     addProductToCart: (product) => {
         set((state) => {
             const updatedCartData = [...state.cartData];
