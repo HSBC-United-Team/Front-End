@@ -8,19 +8,20 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import PrivateRoute from "./utils/PrivateRoute";
 
 function App() {
-    return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<LandingPage />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/signup" element={<SignUpPage />} />
-                <Route element={<PrivateRoute />}>
-                    <Route path="/home" element={<HomePage />} />
-                    <Route path="/cart" element={<Cart />} />
-                    <Route path="/favorite" element={<Fav />} />
-                </Route>
-            </Routes>
-        </Router>
-    );
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/favorite" element={<Fav />} />
+        </Route>
+      </Routes>
+    </Router>
+  );
 }
+
 export default App;
