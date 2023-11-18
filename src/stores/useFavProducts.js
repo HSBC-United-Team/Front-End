@@ -2,33 +2,45 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 const useFav = (set) => ({
-    favProducts: [],
-    addFavProduct: (
-        productName,
-        productDescription,
-        productPrice,
-        productImage
-    ) => {
-        set((state) => {
-            const updatedFavProducts = [...state.favProducts];
-            updatedFavProducts.push({
-                productName,
-                productDescription,
-                productPrice,
-                productImage,
-            });
-            return { favProducts: [...updatedFavProducts] };
+  favProducts: [],
+  addFavProduct: (product) => {
+    set((state) => {
+      const updatedFavProducts = [...state.favProducts];
+      const productIndex = updatedFavProducts.findIndex(
+        (prod) => prod.productName === product.name
+      );
+      if (productIndex !== -1) {
+        updatedFavProducts.splice(productIndex, 1);
+        return { favProducts: updatedFavProducts };
+      } else {
+        updatedFavProducts.push({
+          id: product.id,
+          productName: product.name,
+          productDescription: product.description,
+          productAmount: 1,
+          productPrice: product.price,
+          productImage: product.image,
+          isFavorite:!product.isFavorite
         });
-    },
-    removeFavProduct: (productIndex) => {
-        set((state) => {
-            const updatedFavProducts = [...state.favProducts];
-            updatedFavProducts.splice(productIndex, 1);
-            return { favProducts: [...updatedFavProducts] };
-        });
-    },
+        return { favProducts: updatedFavProducts };
+      }
+    });
+  },
+  removeFavProduct: (favProducts) => {
+    set((state) => {
+        const updateFav = [...state.favProducts];
+        const productName=favProducts.id
+        const productIndex = updateFav.findIndex(
+            (prod) => prod.id===productName
+        );
+        if (productIndex !== -1) {
+            updateFav.splice(productIndex, 1);
+          }
+        return { favProducts: updateFav };
+    });
+  },
 });
 
 export const useFavProducts = create(
-    persist(useFav, { name: "user-favorite-products" })
+  persist(useFav, { name: "user-favorite-products" })
 );
