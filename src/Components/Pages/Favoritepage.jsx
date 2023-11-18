@@ -1,61 +1,51 @@
-import { IconBackArrow } from "../../../public/icons";
+import {  IconKeranjang } from "../../../public/icons";
+import { useFavProducts } from "../../stores/useFavProducts";
 import BtnGreen from "../atoms/BtnGreen";
-import Logo from "../molecules/Logo";
-import Navbar from "../organisms/Navbar";
-import products from "/public/data/productList";
+import { Navbar2 } from "../organisms/Navbar2";
+
 
 function Fav() {
-    products;
+
+    const { favProducts,removeFavProduct } = useFavProducts((state) => ({
+        favProducts: state.favProducts,
+        removeFavProduct:state.removeFavProduct
+    }));
+    const handlerem=(product)=>{
+        removeFavProduct(product)
+    }
     return (
         <>
-            {/* <div
-                className="fixed text-center w-full bg-white md:justify-center md:flex md:mx-auto  md:px-12 md:py-4 md:items-center flex-around"
-                style={{
-                    boxShadow: "-12px 0px 37px 0px rgba(230, 235, 243, 0.5)",
-                }}
-            > */}
-            <div
-                className="md:flex md:mx-6 md:my-12 md:items-center"
-                style={{
-                    boxShadow: "-12px 0px 37px 0px rgba(230, 235, 243, 0.5)",
-                }}
-            >
-                <Logo className=" hidden " />
-                <h1 className=" text-center font-bold my-4 text-[30px] md:w-[35%] ">
-                    Favorite
-                </h1>
-                <hr className="md:hidden border" />
-                <Navbar />
-            </div>
-            {products.map((product) => (
-                <div
-                    className="flex flex-col py-24 pb-32    px-[5%]"
-                    key={product.id}
-                >
+            <Navbar2>Favorite</Navbar2>
+
+            <div className="flex flex-col py-28 pb-32    px-[5%]">
+                {favProducts.map((product) =>
                     <>
                         <div className="flex justify-between h-[114px] items-center  ">
                             <div className="grid grid-cols-2 w-[60%]  justify-arround">
-                                <div className=" flex justify-center items-center">
+                                <div className=" flex justify-start items-center">
+                                    <button onClick={()=>handlerem(product)} className="mr-10 w-8">
+                                        <img src="/images/svg/exit-full-screen.png" alt="" />
+                                    </button>
                                     <img
                                         className=" object-contain  w-[100px] h-[100px]"
-                                        src={product.image}
+                                        src={product.productImage}
                                         alt="img"
                                     />
                                 </div>
-                                <div className=" flex flex-col justify-center ">
-                                    <h3>{product.name}</h3>
-                                    <p>{product.weight}</p>
+                                <div className="font-bold flex flex-col justify-center ">
+                                    <h3>{product.productName}</h3>
+                                    <p>{product.productWeight}</p>
                                 </div>
                             </div>
-                            <div className="flex items-center gap-2">
-                                {product.price}
-                                <IconBackArrow />
-                            </div>
+                            <button className="font-bold flex items-center gap-2">
+                            <span>$</span>{product.productPrice}
+                                <IconKeranjang />
+                            </button>
                         </div>
                         <hr className="md:hidden border" />
                     </>
-                </div>
-            ))}
+                )}
+            </div>
             <BtnGreen>Add All To Cart</BtnGreen>
         </>
     );
