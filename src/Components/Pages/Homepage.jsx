@@ -3,13 +3,13 @@ import Header from "../organisms/Header";
 import ProductList from "../organisms/ProductList";
 
 function HomePage() {
-    return (
-        <>
-            <Header />
-            <Banner />
-            <ProductList />
-        </>
-    );
+  return (
+    <>
+      <Header />
+      <Banner />
+      <ProductList />
+    </>
+  );
 }
 
 export default HomePage;
