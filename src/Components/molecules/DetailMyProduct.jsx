@@ -27,11 +27,11 @@ const DetailMyProduct = ({ open, onClose }) => {
           <div>
             <h2 className="font-medium pb-1">Description</h2>
             <h3>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eaque
-              rem impedit asperiores repellendus ipsa, temporibus iste omnis
-              consequuntur inventore vitae accusantium blanditiis dolorum,
-              aliquid id nemo expedita, deleniti harum iusto incidunt. Quidem
-              suscipit, maxime ex magnam quod, nobis natus nihil laborum eveniet
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius
+              harum nesciunt labore dolore dicta corporis iusto id sit incidunt,
+              autem, magni fugiat maiores tenetur cumque alias dolorem ex
+              distinctio odio nihil, esse dolorum tempora? Earum modi illo ex
+              nisi doloribus.
             </h3>
           </div>
         </div>
