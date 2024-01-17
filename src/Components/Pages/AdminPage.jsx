@@ -1,14 +1,15 @@
-import AdmBtn from "../atoms/AdmBtn"
-import MySales from "../molecules/AdmMySales"
-import Header from "../organisms/Header"
+import AdmBtn from "../atoms/AdmBtn";
+import MySales from "../molecules/AdmMySales";
+import AdmMyProduct from "../organisms/AdmMyProduct";
+import Header from "../organisms/Header";
 
-const Admin=()=>{
-    return(
-        <>
-        <Header/>
-        <MySales/>
-        
-        </>
-    )
-}
-export default Admin
+const Admin = () => {
+  return (
+    <>
+      <Header />
+      <MySales />
+      <AdmMyProduct />
+    </>
+  );
+};
+export default Admin;
