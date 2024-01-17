@@ -25,13 +25,14 @@ const DetailMyProduct = ({ open, onClose }) => {
             <h2 className="text-[#7C7C7C] text-sm pt-4">$1.00/1.0Kg</h2>
           </div>
           <div>
-            <h2>
+            <h2 className="font-medium pb-1">Description</h2>
+            <h3>
               Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eaque
               rem impedit asperiores repellendus ipsa, temporibus iste omnis
               consequuntur inventore vitae accusantium blanditiis dolorum,
               aliquid id nemo expedita, deleniti harum iusto incidunt. Quidem
               suscipit, maxime ex magnam quod, nobis natus nihil laborum eveniet
-            </h2>
+            </h3>
           </div>
         </div>
       </div>
