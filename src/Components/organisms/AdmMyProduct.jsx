@@ -22,7 +22,6 @@ function AdmMyProduct() {
         </div>
         <div className="border rounded-lg p-3 border-green-500">
           <MyProduct />
-          <MyProduct />
         </div>
       </div>
       <AddProductModal
