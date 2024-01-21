@@ -2,27 +2,25 @@ import { useNavigate } from "react-router-dom";
 import AccountSection from "../atoms/AccountSection";
 import AccountActions from "./AccountActions";
 import { useState } from "react";
+import BtnTrackOrder from "../atoms/BtnTrackOrder";
 
 function BodyAccount() {
     const navigate = useNavigate();
+    const userDataString = localStorage.getItem("user-info")
+    const userData = JSON.parse(userDataString).state.user.username;
+    console.log(userData)
     const sections = [
         {
             title: "Orders",
             iconSrc: "public/images/svg/Ordersicon.png",
             content: (
-                <div className="flex w-[70%] justify-around items-center ">
-                    <div className="w-12 h-12 rounded-full flex justify-center items-center border border-black">
-                        <img src="public/images/tracking_order/to-do-list.png" className="w-8 h-8" alt="" />
-                    </div>
-                    <div className="w-12 h-12 rounded-full flex justify-center items-center border border-black">
-                        <img src="public/images/tracking_order/box.png" className="w-8 h-8" alt="" />
-                    </div>
-                    <div className="w-12 h-12 rounded-full flex justify-center items-center border border-black">
-                        <img src="public/images/tracking_order/delivery-truck.png" className="w-8 h-8" alt="" />
-                    </div>
-                    <div className="w-12 h-12 rounded-full flex justify-center items-center border border-black">
-                        <img src="public/images/tracking_order/cash-on-delivery.png" className="w-8 h-8" alt="" />
-                    </div>
+                <div className="flex w-[70%] justify-around items-center  p-2">
+                    <BtnTrackOrder src="public/images/tracking_order/to-do-list.png">Pending</BtnTrackOrder>
+                    <BtnTrackOrder src="public/images/tracking_order/box.png">Processed</BtnTrackOrder>
+                    <BtnTrackOrder src="public/images/tracking_order/delivery-truck.png">Shipping</BtnTrackOrder>
+                    <BtnTrackOrder src="public/images/tracking_order/cash-on-delivery.png">Delivered</BtnTrackOrder>
+                    <BtnTrackOrder src="public/images/tracking_order/cancelled.png">Cancelled</BtnTrackOrder>
+
                 </div>
             )
         },
@@ -30,8 +28,10 @@ function BodyAccount() {
             title: "My Details",
             iconSrc: "public/images/svg/id.png",
             content: (
-                <div>
-                    <p>ini konten</p>
+                <div className="flex flex-col w-[70%] items-center bg-green-200 p-2">
+                    <p>First Name : {userData.first_name} </p>
+                    <p>Last Name  : {userData.last_name} </p>
+                    <p>Role       : {userData.role} </p>
                 </div>
             )
         },
@@ -39,7 +39,7 @@ function BodyAccount() {
             title: "Delivery Address",
             iconSrc: "public/images/svg/map.png",
             content: (
-                <div>
+                <div className="flex w-[70%] justify-around items-center bg-green-200 p-2">
                     <p>ini konten</p>
                 </div>
             )
@@ -66,9 +66,12 @@ function BodyAccount() {
         navigate("/");
     };
     const [showContent, setShowContent] = useState(false);
+    const [isClicked, setIsClicked] = useState(false)
 
     const handleButtonClick = (index) => {
         setShowContent((prevSelected) => (prevSelected === index ? null : index));
+        setIsClicked((prevSelected) => (prevSelected === index ? null : index))
+
         console.log(index)
     };
 
@@ -82,7 +85,7 @@ function BodyAccount() {
                         onClick={() => handleButtonClick(index)}
                     />
                     {showContent === index && (
-                        <div className="flex justify-center items-center border-b-2 p-2">
+                        <div className="flex justify-center items-center border-b-2 bg-green-200">
                             {section.content}
 
                         </div>

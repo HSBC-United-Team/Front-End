@@ -29,9 +29,10 @@ function ProductCard() {
 
   useEffect(() => {
     axios
-      .get("https://65582f239c0b643cb2d6e01b.mockapi.io/products")
+      .get("http://localhost:3000/api/v1/products/")
       .then((res) => {
-        const updatedProducts = res.data.map((product) => ({
+        console.log(res)
+        const updatedProducts = res.data.products.map((product) => ({
           ...product,
           isFavorite: false,
         }));
