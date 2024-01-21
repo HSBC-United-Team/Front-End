@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {  IconKeranjang } from "../../../public/icons";
 import { useFavProducts } from "../../stores/useFavProducts";
 import BtnGreen from "../atoms/BtnGreen";
@@ -13,12 +14,21 @@ function Fav() {
     const handlerem=(product)=>{
         removeFavProduct(product)
     }
+    const [fav, setFav] = useState()
+    useEffect(()=>{
+        fetch('http://localhost:3000/api/v1/favorites/')
+      .then(response => response.json())
+      .then(data => setFav(data))
+      .catch(error => console.error('Error fetching favorites:', error));
+  
+    },[])
     return (
         <>
             <Navbar2>Favorite</Navbar2>
 
             <div className="flex flex-col py-14 md:py-28 pb-32    px-[5%]">
-                {favProducts.map((product) =>
+                {fav >0?(
+                    fav.map((product) =>
                     <>
                         <div className="flex justify-between md:h-[114px] h-auto items-center  ">
                             <div className="flex md:flex-row flex-col w-[60%]   justify-arround">
@@ -44,7 +54,10 @@ function Fav() {
                         </div>
                         <hr className="md:hidden border" />
                     </>
+                )):(
+                    <p className="text-center font-bold text-xl">Keranjang Favorit Kosong</p>
                 )}
+                
             </div>
             <BtnGreen>Add All To Cart</BtnGreen>
         </>

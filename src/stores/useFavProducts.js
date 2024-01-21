@@ -3,7 +3,7 @@ import { persist } from "zustand/middleware";
 
 const useFav = (set) => ({
   favProducts: [],
-  addFavProduct: (product) => {
+  addFavProduct: async (product) => {
     set((state) => {
       const updatedFavProducts = [...state.favProducts];
       const productIndex = updatedFavProducts.findIndex(
@@ -11,7 +11,6 @@ const useFav = (set) => ({
       );
       if (productIndex !== -1) {
         updatedFavProducts.splice(productIndex, 1);
-        return { favProducts: updatedFavProducts };
       } else {
         updatedFavProducts.push({
           id: product.id,
@@ -20,23 +19,43 @@ const useFav = (set) => ({
           productAmount: 1,
           productPrice: product.price,
           productImage: product.image,
-          isFavorite:!product.isFavorite
+          isFavorite: !product.isFavorite,
         });
-        return { favProducts: updatedFavProducts };
       }
+      return { favProducts: updatedFavProducts };
     });
+
+    // Sending POST request to the API
+    try {
+      const response = await fetch('https://localhost:3000/api/v1/favorites', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          productName: product.name,
+          productDescription: product.description,
+          productAmount: 1,
+          productPrice: product.price,
+          productImage: product.image,
+          isFavorite: !product.isFavorite,
+        }),
+      });
+
+      if (!response.ok) {
+        // Handle error response from the server
+        console.error('Error adding favorite product:', response.status);
+      }
+    } catch (error) {
+      // Handle network or other errors
+      console.error('Error adding favorite product:', error);
+    }
   },
-  removeFavProduct: (favProducts) => {
+  removeFavProduct: () => {
     set((state) => {
-        const updateFav = [...state.favProducts];
-        const productName=favProducts.id
-        const productIndex = updateFav.findIndex(
-            (prod) => prod.id===productName
-        );
-        if (productIndex !== -1) {
-            updateFav.splice(productIndex, 1);
-          }
-        return { favProducts: updateFav };
+      const updatedFavProducts = [...state.favProducts];
+      // Implement your logic to remove a favorite product
+      return { favProducts: updatedFavProducts };
     });
   },
 });
