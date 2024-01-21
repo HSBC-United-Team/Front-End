@@ -13,17 +13,19 @@ function LoginPage() {
     const handleLogin = async (event) => {
         event.preventDefault();
         try {
-            const response = await fetch("https://dummyjson.com/auth/login", {
+            const response = await fetch("http://localhost:3000/api/v1/users/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ username, password }),
             });
             if (response.ok) {
                 const user = await response.json();
+                console.log(user.role)
                 setUserInfo({ ...user });
                 setUsername("");
                 setPassword("");
-                navigate("/home");
+                user.role=='seller'?navigate("/admin"):navigate("/home");
+                
                 console.log("Login successful:", user);
             } else {
                 console.log("Invalid username or password");

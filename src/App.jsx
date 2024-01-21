@@ -7,6 +7,7 @@ import SignUpPage from "./Components/Pages/SignUpPage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import PrivateRoute from "./utils/PrivateRoute";
 import AccountPage from "./Components/Pages/AccountPage";
+import Admin from "./Components/Pages/AdminPage";
 
 function App() {
     return (
@@ -20,6 +21,8 @@ function App() {
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/favorite" element={<Fav />} />
                     <Route path="/profile" element={<AccountPage />} />
+                    <Route path="/admin" element={<Admin />} />
+
                 </Route>
             </Routes>
         </Router>

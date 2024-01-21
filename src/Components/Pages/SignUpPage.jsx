@@ -8,35 +8,52 @@ function SignUpPage() {
         return { setUserInfo: state.setUserInfo };
     });
     const navigate = useNavigate();
+
+    const [first_name, setFirst_name] = useState();
+    const [last_name, setLast_name] = useState();
     const [username, setUsername] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-    const [confirmPassword, setConfirmPassword] = useState();
+    const [repassword, setRePassword] = useState();
 
     const handleSignUp = async (event) => {
         event.preventDefault();
-        if (password === confirmPassword) {
-            console.log();
+        if (password === repassword) {
             try {
+                console.log(JSON.stringify({ username, first_name, last_name, email, password, repassword }));
                 const response = await fetch(
-                    "https://dummyjson.com/users/add",
+                    "http://localhost:3000/api/v1/users/signUp",
                     {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ username, email, password }),
+                        body: JSON.stringify({ username, first_name, last_name, email, password,repassword }),
                     }
-                );
-
+                )
                 const user = await response.json();
-                console.log(user);
+                // console.log(user);
                 setUserInfo({ ...user });
                 setUsername("");
+                setFirst_name("");
+                setLast_name("");
                 setEmail("");
                 setPassword("");
-                navigate("/home");
+                setRePassword("");
+                alert("Akun berhasil di daftarkan, Silahkan melakukan Login")
+                navigate("/login")
+              
             } catch (error) {
-                console.error("Ada yang salah nih kwkwk");
+                console.error("Terjadi kesalahan:", error);
+                if (error instanceof Response) {
+                    try {
+                        const errorData = await error.json();
+                        console.error("Respons dari server:", errorData);
+                    } catch (jsonError) {
+                        console.error("Gagal mengurai JSON:", jsonError);
+                        console.error("Respons dari server (bukan JSON):", await error.text());
+                    }
+                }
             }
+            
         } else {
             console.log("Password tidak sama");
         }
@@ -63,6 +80,22 @@ function SignUpPage() {
                             onChange={(e) => setUsername(e.target.value)}
                         />
                         <input
+                            type="text"
+                            id="signup-first_name"
+                            placeholder="First Name"
+                            className="mb-4 p-2 border rounded w-full"
+                            required
+                            onChange={(e) => setFirst_name(e.target.value)}
+                        />
+                        <input
+                            type="text"
+                            id="signup-last_name"
+                            placeholder="Last Name"
+                            className="mb-4 p-2 border rounded w-full"
+                            required
+                            onChange={(e) => setLast_name(e.target.value)}
+                        />
+                        <input
                             type="email"
                             id="signup-email"
                             placeholder="Email"
@@ -84,7 +117,7 @@ function SignUpPage() {
                             placeholder="Confirm Password"
                             className="mb-4 p-2 border rounded w-full"
                             required
-                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            onChange={(e) => setRePassword(e.target.value)}
                         />
                         <button
                             type="submit"
