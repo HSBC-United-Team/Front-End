@@ -4,7 +4,7 @@ import axios from "axios";
 
 function MyProduct() {
   const [openModalProduct, setOpenModalProduct] = useState(false);
-
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -36,7 +36,10 @@ function MyProduct() {
           <div className="flex flex-wrap md:ml-auto gap-5">
             <button
               className="border-2 my-6 px-5 rounded-lg border-green-300 hover:bg-green-500 hover:text-white"
-              onClick={() => setOpenModalProduct(true)}
+              onClick={() => {
+                setSelectedProduct(product);
+                setOpenModalProduct(true);
+              }}
             >
               View
             </button>
@@ -52,7 +55,11 @@ function MyProduct() {
 
       <DetailMyProduct
         open={openModalProduct}
-        onClose={() => setOpenModalProduct(false)}
+        onClose={() => {
+          setSelectedProduct(null);
+          setOpenModalProduct(false);
+        }}
+        selectedProduct={selectedProduct}
       />
     </>
   );
