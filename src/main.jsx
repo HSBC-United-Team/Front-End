@@ -9,7 +9,7 @@ import AddProductModal from "./Components/organisms/addProductModal.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
-  <App />
-  // <Admin />
+  // <App />
+  <Admin />
   // </React.StrictMode>
 );
