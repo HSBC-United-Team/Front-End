@@ -3,6 +3,7 @@ import { Navbar2 } from "../organisms/Navbar2";
 import { UseCartData } from "../../stores/useCartData";
 import { useCartState } from "../atoms/CartState";
 import CheckoutModal from "../organisms/CheckoutModals";
+import { useEffect } from "react";
 function Cart() {
     const {
         showModal,
@@ -45,7 +46,8 @@ function Cart() {
         removeProductInCart(product);
     };
     const totalPrice = products.reduce((total, prod) => total + parseFloat(prod.totalPrice), 0);
-    const total =totalPrice.toString().substring(0,5)
+    const total = totalPrice.toString().substring(0, 5)
+
     return (
         <>
             <Navbar2>My Cart</Navbar2>
@@ -99,7 +101,7 @@ function Cart() {
                 <BtnGreen onClick={openModal}>
                     <div>
                         <span className="w-[134.125px] h-3.5 shrink-0 text-[#FCFCFC] text-lg not-italic font-semibold leading-[18px]">
-                            Checkout <span className=" absolute right-[5%]">{'Total: $'+total}</span>
+                            Checkout <span className=" absolute right-[5%]">{'Total: $' + total}</span>
                         </span>
                     </div>
                 </BtnGreen>

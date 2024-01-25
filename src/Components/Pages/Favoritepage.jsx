@@ -5,7 +5,7 @@ import BtnGreen from "../atoms/BtnGreen";
 import { Navbar2 } from "../organisms/Navbar2";
 
 
-const Fav=async()=>{
+const Fav = () => {
 
     const { favProducts, removeFavProduct } = useFavProducts((state) => ({
         favProducts: state.favProducts,
@@ -15,33 +15,38 @@ const Fav=async()=>{
         removeFavProduct(product)
     }
     const [fav, setFav] = useState()
-    const customerId = 1;
+    const userDataString = localStorage.getItem("user-info")
+    const userData = JSON.parse(userDataString).state.user.username;
+    console.log(typeof (userData.user_id))
+    useEffect(() => {
+        const userDataString = localStorage.getItem("user-info")
+        const userData = JSON.parse(userDataString).state.user.username;
+        console.log(userData)
+        const dataFav = async () => {
+            try {
+                const response = await fetch(`http://localhost:3000/api/v1/favorites/${userData.user_id}`,
+                    {
+                        credentials: 'include',
+                    }
+                )
+                const data = await response.json();
 
-    try {
-        const response = await fetch('https://localhost:3000/api/v1/favorites');
-        const data= await response.json()
-        console.log(data)
-        if (!response.ok) {
-            const errorData = await response.json();
-            console.error('Error fetching products:', response.status, errorData);
-            // Handle error response
-        } else {
-            const products = await response.json();
-            console.log('Products:', products);
-            // Handle successful response
-        }
-    } catch (error) {
-        console.error('Error fetching products:', error);
-        // Handle network or other errors
-    }
+                console.log(data);
+                setFav(data)
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            }
+        };
+        dataFav();
+    }, []);
     console.log(fav)
     return (
         <>
             <Navbar2>Favorite</Navbar2>
 
             <div className="flex flex-col py-14 md:py-28 pb-32    px-[5%]">
-                {fav > 0 ? (
-                    fav.map((product) =>
+                {fav ? (
+                    fav.map((product) => {
                         <>
                             <div className="flex justify-between md:h-[114px] h-auto items-center  ">
                                 <div className="flex md:flex-row flex-col w-[60%]   justify-arround">
@@ -67,6 +72,7 @@ const Fav=async()=>{
                             </div>
                             <hr className="md:hidden border" />
                         </>
+                    }
                     )) : (
                     <p className="text-center font-bold text-xl">Keranjang Favorit Kosong</p>
                 )}
