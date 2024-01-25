@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const useCartState = () => {
   const [showModal, setShowModal] = useState(false);
-  const [selectedProvince, setSelectedProvince] = useState("");
+  // const [selectedProvince, setSelectedProvince] = useState("");
+  // const [selectedCity, setSelectedCity] = useState("");
+  const [provinces, setProvinces] = useState([]);
+  const [selectedProvince, setSelectedProvince] = useState('');
   const [selectedCity, setSelectedCity] = useState("");
+  const [data,setData]=useState()
 
   const openModal = () => {
     setShowModal(true);
@@ -13,56 +17,90 @@ export const useCartState = () => {
     setShowModal(false);
   };
 
-  const data = {
-    "DKI Jakarta": {
-      cities: ["Jakarta Pusat", "Jakarta Selatan", "Jakarta Barat"],
-      zips: ["10110", "12240", "11220"],
-    },
-    "Jawa Barat": {
-      cities: ["Bandung", "Bogor", "Cirebon"],
-      zips: ["40111", "16130", "45121"],
-    },
-    "Jawa Tengah": {
-      cities: ["Semarang", "Surakarta", "Magelang"],
-      zips: ["50141", "57111", "56121"],
-    },
-    "Jawa Timur": {
-      cities: ["Surabaya", "Malang", "Sidoarjo"],
-      zips: ["60111", "65122", "61234"],
-    },
-    Bali: {
-      cities: ["Denpasar", "Kuta", "Ubud"],
-      zips: ["80222", "80361", "80571"],
-    },
-    "Sumatra Utara": {
-      cities: ["Medan", "Binjai", "Pematang Siantar"],
-      zips: ["20212", "20711", "21123"],
-    },
-    "Sumatra Barat": {
-      cities: ["Padang", "Bukittinggi", "Payakumbuh"],
-      zips: ["25111", "26122", "26251"],
-    },
-    "Sulawesi Utara": {
-      cities: ["Manado", "Tomohon", "Bitung"],
-      zips: ["95111", "95355", "95511"],
-    },
-    "Sulawesi Selatan": {
-      cities: ["Makassar", "Mamuju", "Parepare"],
-      zips: ["90111", "91511", "91122"],
-    },
-    Papua: {
-      cities: ["Jayapura", "Sentani", "Abepura"],
-      zips: ["99111", "99221", "99333"],
-    },
-    "Nusa Tenggara Barat": {
-      cities: ["Mataram", "Bima", "Sumbawa Besar"],
-      zips: ["83111", "84122", "84333"],
-    },
-    "Nusa Tenggara Timur": {
-      cities: ["Kupang", "Maumere", "Ende"],
-      zips: ["86111", "86222", "86333"],
-    },
-  };
+  useEffect(() => {
+    const fetchProvinces = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/province');
+        const dataa = await response.json();
+        const data=await dataa.rajaongkir.results
+        setProvinces(data);
+        setData(data)
+      } catch (error) {
+        console.error('Error fetching provinces:', error.message);
+      }
+    };
+
+    fetchProvinces();
+  }, []);
+console.log(data)
+  useEffect(() => {
+    const fetchCitiesByProvince = async () => {
+      if (selectedProvince) {
+        try {
+          const response = await fetch(`http://localhost:3000/city/${selectedProvince}`);
+          const data = await response.json();
+          setSelectedCity(data);
+          
+        } catch (error) {
+          console.error('Error fetching cities:', error.message);
+        }
+      }
+    };
+
+    fetchCitiesByProvince();
+  }, [selectedProvince]);
+
+
+  // const data = {
+  //   "DKI Jakarta": {
+  //     cities: ["Jakarta Pusat", "Jakarta Selatan", "Jakarta Barat"],
+  //     zips: ["10110", "12240", "11220"],
+  //   },
+  //   "Jawa Barat": {
+  //     cities: ["Bandung", "Bogor", "Cirebon"],
+  //     zips: ["40111", "16130", "45121"],
+  //   },
+  //   "Jawa Tengah": {
+  //     cities: ["Semarang", "Surakarta", "Magelang"],
+  //     zips: ["50141", "57111", "56121"],
+  //   },
+  //   "Jawa Timur": {
+  //     cities: ["Surabaya", "Malang", "Sidoarjo"],
+  //     zips: ["60111", "65122", "61234"],
+  //   },
+  //   Bali: {
+  //     cities: ["Denpasar", "Kuta", "Ubud"],
+  //     zips: ["80222", "80361", "80571"],
+  //   },
+  //   "Sumatra Utara": {
+  //     cities: ["Medan", "Binjai", "Pematang Siantar"],
+  //     zips: ["20212", "20711", "21123"],
+  //   },
+  //   "Sumatra Barat": {
+  //     cities: ["Padang", "Bukittinggi", "Payakumbuh"],
+  //     zips: ["25111", "26122", "26251"],
+  //   },
+  //   "Sulawesi Utara": {
+  //     cities: ["Manado", "Tomohon", "Bitung"],
+  //     zips: ["95111", "95355", "95511"],
+  //   },
+  //   "Sulawesi Selatan": {
+  //     cities: ["Makassar", "Mamuju", "Parepare"],
+  //     zips: ["90111", "91511", "91122"],
+  //   },
+  //   Papua: {
+  //     cities: ["Jayapura", "Sentani", "Abepura"],
+  //     zips: ["99111", "99221", "99333"],
+  //   },
+  //   "Nusa Tenggara Barat": {
+  //     cities: ["Mataram", "Bima", "Sumbawa Besar"],
+  //     zips: ["83111", "84122", "84333"],
+  //   },
+  //   "Nusa Tenggara Timur": {
+  //     cities: ["Kupang", "Maumere", "Ende"],
+  //     zips: ["86111", "86222", "86333"],
+  //   },
+  // };
 
   const paymentMethods = [
     "DANA",

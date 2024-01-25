@@ -18,18 +18,10 @@ const Fav=async()=>{
     const customerId = 1;
 
     try {
-        const response = await fetch('https://localhost:3000/api/v1/favorites');
+        const response = await fetch('http://localhost:3000/api/v1/favorites/3');
         const data= await response.json()
         console.log(data)
-        if (!response.ok) {
-            const errorData = await response.json();
-            console.error('Error fetching products:', response.status, errorData);
-            // Handle error response
-        } else {
-            const products = await response.json();
-            console.log('Products:', products);
-            // Handle successful response
-        }
+        
     } catch (error) {
         console.error('Error fetching products:', error);
         // Handle network or other errors
