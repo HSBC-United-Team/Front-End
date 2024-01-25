@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MyProduct from "../molecules/MyProduct";
 import AddProductModal from "./addProductModal";
 import SearchMyProduct from "../molecules/SearchMyProduct";
 
 function AdmMyProduct() {
   const [openModalAddProduct, setOpenModalAddProduct] = useState(false);
+
   return (
     <>
       <div className="m-auto w-[90%]">

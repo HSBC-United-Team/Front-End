@@ -1,16 +1,18 @@
 import React from "react";
 
-const SearchMyProduct = () => {
+const SearchMyProduct = ({ searchProduct, changeHandler, query }) => {
   return (
     <div>
       <div className="flex items-center mb-1 text-white">
-        <form className="">
+        <form onSubmit={searchProduct}>
           <input
             type="search"
             placeholder="Search Product"
             aria-label="search"
             className="text-black px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none"
             name="query"
+            value={query}
+            onChange={changeHandler}
           />
           <button
             className="border text-white px-3 pt-[7px] pb-[14px] rounded-r-md hover:bg-gray-200 focus:outline-none"

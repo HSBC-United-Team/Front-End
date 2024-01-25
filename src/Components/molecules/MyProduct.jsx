@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import DetailMyProduct from "./detailMyProduct";
+import DetailMyProduct from "./DetailMyProduct";
 import axios from "axios";
 
 function MyProduct() {
   const [openModalProduct, setOpenModalProduct] = useState(false);
-
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -12,9 +12,7 @@ function MyProduct() {
   }, []);
 
   const getProducts = async () => {
-    const response = await axios.get(
-      "https://65582f239c0b643cb2d6e01b.mockapi.io/products"
-    );
+    const response = await axios.get("http://localhost:3000/api/v1/products");
     setProducts(response.data);
   };
   return (
@@ -36,7 +34,10 @@ function MyProduct() {
           <div className="flex flex-wrap md:ml-auto gap-5">
             <button
               className="border-2 my-6 px-5 rounded-lg border-green-300 hover:bg-green-500 hover:text-white"
-              onClick={() => setOpenModalProduct(true)}
+              onClick={() => {
+                setSelectedProduct(product);
+                setOpenModalProduct(true);
+              }}
             >
               View
             </button>
@@ -52,7 +53,11 @@ function MyProduct() {
 
       <DetailMyProduct
         open={openModalProduct}
-        onClose={() => setOpenModalProduct(false)}
+        onClose={() => {
+          setSelectedProduct(null);
+          setOpenModalProduct(false);
+        }}
+        selectedProduct={selectedProduct}
       />
     </>
   );
