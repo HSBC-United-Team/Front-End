@@ -7,24 +7,20 @@ import { IconPlus } from "../../../public/icons";
 function ProductCard() {
   const { addProductToCart } = UseCartData((UseCart) => {
     return {
-      addProductToCart: UseCart.addProductToCart
-    }
-  })
+      addProductToCart: UseCart.addProductToCart,
+    };
+  });
   const handleAddToCarts = (product) => {
-    addProductToCart(
-      product
-    );
+    addProductToCart(product);
   };
-  const { addFavProduct,favProducts } = useFavProducts((UseFav) => {
+  const { addFavProduct, favProducts } = useFavProducts((UseFav) => {
     return {
       addFavProduct: UseFav.addFavProduct,
-      favProducts:UseFav.favProducts
-    }
-  })
+      favProducts: UseFav.favProducts,
+    };
+  });
   const handleFav = (product) => {
-    addFavProduct(
-      product
-    );
+    addFavProduct(product);
   };
   const handleBothFunctions = (product) => {
     handleFav(product);
@@ -33,11 +29,12 @@ function ProductCard() {
 
   useEffect(() => {
     axios
-      .get("https://65582f239c0b643cb2d6e01b.mockapi.io/products")
+      .get("http://localhost:3000/api/v1/products/")
       .then((res) => {
-        const updatedProducts = res.data.map((product) => ({
+        console.log(res)
+        const updatedProducts = res.data.products.map((product) => ({
           ...product,
-          isFavorite:false
+          isFavorite: false,
         }));
         setProductList(updatedProducts);
       });
@@ -60,19 +57,21 @@ function ProductCard() {
                 </button>
                 <div className=" h-[45%]">
                   <h3 className="nama font-semibold">{product.name}</h3>
-                  <p className="text-[#7C7C7C] text-[14px]">
-                    {product.weight}
-                  </p>
+                  <p className="text-[#7C7C7C] text-[14px]">{product.weight}</p>
                   <div className="flex justify-between items-end">
                     <span className="harga font-semibold">
                       ${product.price}
                     </span>
-                    <BtnAddProduct className="absolute top-2 right-2 " onClick={() =>
-                      handleBothFunctions(product)
-                    } ><img
+                    <BtnAddProduct
+                      className="absolute top-2 right-2 "
+                      onClick={() => handleBothFunctions(product)}
+                    >
+                      <img
                         className="w-[26px] h-[26px]"
                         src={
-                          favProducts.find((fav) => fav.productName === product.name)
+                          favProducts.find(
+                            (fav) => fav.productName === product.name
+                          )
                             ? "/images/svg/heart (2).png"
                             : "/images/svg/heart (1).png"
                         }
@@ -80,9 +79,9 @@ function ProductCard() {
                       />
                     </BtnAddProduct>
                     <div className="flex gap-2 items-end justify-center">
-                      <BtnAddProduct onClick={() =>
-                        handleAddToCarts(product)
-                      } ><IconPlus /></BtnAddProduct>
+                      <BtnAddProduct onClick={() => handleAddToCarts(product)}>
+                        <IconPlus />
+                      </BtnAddProduct>
                     </div>
                   </div>
                 </div>
