@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import DetailMyProduct from "./detailMyProduct";
+import DetailMyProduct from "./DetailMyProduct";
 import axios from "axios";
 
 function MyProduct() {
@@ -12,9 +12,7 @@ function MyProduct() {
   }, []);
 
   const getProducts = async () => {
-    const response = await axios.get(
-      "https://65582f239c0b643cb2d6e01b.mockapi.io/products"
-    );
+    const response = await axios.get("http://localhost:3000/api/v1/products");
     setProducts(response.data);
   };
   return (
