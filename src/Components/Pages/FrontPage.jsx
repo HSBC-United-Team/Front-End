@@ -3,6 +3,7 @@ import Logo from "../molecules/Logo";
 import SearchBox from "../molecules/SearchBox";
 import Banner from "../molecules/Banner";
 import { useNavigate } from "react-router-dom";
+import ProductList from "../organisms/ProductList";
 
 const FrontPage = () => {
   const navigate = useNavigate();
@@ -32,6 +33,7 @@ const FrontPage = () => {
         <SearchBox />
       </div>
       <Banner />
+      <ProductList/>
     </>
   );
 };
