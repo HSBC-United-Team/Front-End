@@ -14,49 +14,51 @@ const AddProductModal = ({ open, onClose }) => {
             &times;
           </span>
           <Heading>Create Product</Heading>
-          <div className="mx-5">
-            <div className="mb-4">
-              <label className="text-md font-semibold">Product Name</label>
-              <input
-                className="border rounded-lg w-full h-10 px-3"
-                type="text"
-                placeholder="Product Name"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="text-md font-semibold">Price</label>
-              <input
-                className="border rounded-lg w-full h-10 px-3"
-                type="text"
-                placeholder="Price"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="text-md font-semibold">Weight</label>
-              <input
-                className="border rounded-lg w-full h-10 px-3"
-                type="text"
-                placeholder="Weight"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="text-md font-semibold">Description</label>
-              <input
-                className="border rounded-lg w-full h-10 px-3"
-                type="text"
-                placeholder="Description"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="text-md font-semibold">Image</label>
-              <div>
-                <input className="" type="file" />
+          <form action="">
+            <div className="mx-5">
+              <div className="mb-4">
+                <label className="text-md font-semibold">Product Name</label>
+                <input
+                  className="border rounded-lg w-full h-10 px-3"
+                  type="text"
+                  placeholder="Product Name"
+                />
               </div>
+              <div className="mb-4">
+                <label className="text-md font-semibold">Price</label>
+                <input
+                  className="border rounded-lg w-full h-10 px-3"
+                  type="text"
+                  placeholder="Price"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="text-md font-semibold">Weight</label>
+                <input
+                  className="border rounded-lg w-full h-10 px-3"
+                  type="text"
+                  placeholder="Weight"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="text-md font-semibold">Description</label>
+                <input
+                  className="border rounded-lg w-full h-10 px-3"
+                  type="text"
+                  placeholder="Description"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="text-md font-semibold">Image</label>
+                <div>
+                  <input className="" type="file" />
+                </div>
+              </div>
+              <button className="border rounded-lg px-6 py-2 my-2 bg-green-500 text-white hover:bg-green-900">
+                Submit
+              </button>
             </div>
-            <button className="border rounded-lg px-6 py-2 my-2 bg-green-500 text-white hover:bg-green-900">
-              Submit
-            </button>
-          </div>
+          </form>
         </div>
       </div>
     </>
