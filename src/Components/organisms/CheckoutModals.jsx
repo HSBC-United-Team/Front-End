@@ -71,7 +71,7 @@ const CheckoutModal = ({
               >
                 Provinsi
               </label>
-              <select
+              {/* <select
                 name="state"
                 id="state"
                 className="mt-1 p-3 w-full border rounded-md bg-gray-100"
@@ -81,6 +81,19 @@ const CheckoutModal = ({
                 {Object.keys(data).map((province) => (
                   <option key={province} value={province}>
                     {province}
+                  </option>
+                ))}
+              </select> */}
+              <select
+                name="state"
+                id="state"
+                className="mt-1 p-3 w-full border rounded-md bg-gray-100"
+                value={selectedProvince}
+                onChange={handleProvinceChange}
+              >
+                {data.map((province) => (
+                  <option key={province} value={province}>
+                    {province.province}
                   </option>
                 ))}
               </select>
@@ -99,6 +112,7 @@ const CheckoutModal = ({
                 value={selectedCity}
                 onChange={handleCityChange}
               >
+
                 {selectedProvince &&
                   data[selectedProvince].cities.map((city) => (
                     <option key={city} value={city}>
@@ -106,6 +120,21 @@ const CheckoutModal = ({
                     </option>
                   ))}
               </select>
+              {/* <select
+                name="city"
+                id="city"
+                className="mt-1 p-3 w-full border rounded-md bg-gray-100"
+                value={selectedCity}
+                onChange={handleCityChange}
+              >
+
+                {selectedProvince &&
+                  data[selectedProvince].cities.map((city) => (
+                    <option key={city} value={city}>
+                      {city}
+                    </option>
+                  ))}
+              </select> */}
             </div>
             <div className="mt-4">
               <label
@@ -122,8 +151,8 @@ const CheckoutModal = ({
                 value={
                   selectedCity
                     ? data[selectedProvince].zips[
-                        data[selectedProvince].cities.indexOf(selectedCity)
-                      ]
+                    data[selectedProvince].cities.indexOf(selectedCity)
+                    ]
                     : ""
                 }
                 readOnly

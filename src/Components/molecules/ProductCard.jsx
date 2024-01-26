@@ -29,7 +29,7 @@ function ProductCard() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/v1/products/")
+      .get("http://localhost:3000/api/v1/products")
       .then((res) => {
         console.log(res)
         const updatedProducts = res.data.products.map((product) => ({
@@ -38,6 +38,7 @@ function ProductCard() {
         }));
         setProductList(updatedProducts);
       });
+    console.log(productList)
   }, []);
   return (
     <>

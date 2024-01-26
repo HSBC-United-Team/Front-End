@@ -1,25 +1,34 @@
 import { useNavigate } from "react-router-dom";
 import AccountSection from "../atoms/AccountSection";
-import AccountActions from "./AccountActions";
+import AccountActions from "../molecules/AccountActions";
 import { useState } from "react";
 import BtnTrackOrder from "../atoms/BtnTrackOrder";
+import { Cancelled, Delivered, Pending, Processed, Shipping } from "../molecules/PopUp";
 
 function BodyAccount() {
     const navigate = useNavigate();
     const userDataString = localStorage.getItem("user-info")
     const userData = JSON.parse(userDataString).state.user.username;
     console.log(userData)
+    
+    const [show, setShow] = useState(false)
+    const handleShow = (number) => {
+        setShow(number)
+    }
+    const handleClosePopup = () => {
+        setShow(false)
+    }
     const sections = [
         {
             title: "Orders",
             iconSrc: "public/images/svg/Ordersicon.png",
             content: (
                 <div className="flex w-[70%] justify-around items-center  p-2">
-                    <BtnTrackOrder src="public/images/tracking_order/to-do-list.png">Pending</BtnTrackOrder>
-                    <BtnTrackOrder src="public/images/tracking_order/box.png">Processed</BtnTrackOrder>
-                    <BtnTrackOrder src="public/images/tracking_order/delivery-truck.png">Shipping</BtnTrackOrder>
-                    <BtnTrackOrder src="public/images/tracking_order/cash-on-delivery.png">Delivered</BtnTrackOrder>
-                    <BtnTrackOrder src="public/images/tracking_order/cancelled.png">Cancelled</BtnTrackOrder>
+                    <BtnTrackOrder onClick={() => handleShow(1)} src="public/images/tracking_order/to-do-list.png">Pending</BtnTrackOrder>
+                    <BtnTrackOrder onClick={() => handleShow(2)} src="public/images/tracking_order/box.png">Processed</BtnTrackOrder>
+                    <BtnTrackOrder onClick={() => handleShow(3)} src="public/images/tracking_order/delivery-truck.png">Shipping</BtnTrackOrder>
+                    <BtnTrackOrder onClick={() => handleShow(4)} src="public/images/tracking_order/cash-on-delivery.png">Delivered</BtnTrackOrder>
+                    <BtnTrackOrder onClick={() => handleShow(5)} src="public/images/tracking_order/cancelled.png">Cancelled</BtnTrackOrder>
 
                 </div>
             )
@@ -92,6 +101,11 @@ function BodyAccount() {
                     )}
                 </div>
             ))}
+            {show == 1 && <Pending onClick={handleClosePopup} />}
+            {show == 2 && <Processed onClick={handleClosePopup} />}
+            {show == 3 && <Shipping onClick={handleClosePopup} />}
+            {show == 4 && <Delivered onClick={handleClosePopup} />}
+            {show == 5 && <Cancelled onClick={handleClosePopup} />}
             <AccountActions onLogout={handleLogOut} />
         </section>
     );

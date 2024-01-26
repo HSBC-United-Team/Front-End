@@ -4,6 +4,9 @@ import SearchBox from "../molecules/SearchBox";
 import Banner from "../molecules/Banner";
 import { useNavigate } from "react-router-dom";
 
+import Heading from "../atoms/Heading";
+import ProductCard2 from "../molecules/ProductCard2";
+
 const FrontPage = () => {
   const navigate = useNavigate();
   return (
@@ -32,6 +35,12 @@ const FrontPage = () => {
         <SearchBox />
       </div>
       <Banner />
+      <div className="px-6 mb-32">
+        <Heading>ExclusiveOffer</Heading>
+        <div className="card grid grid-cols-2 gap-4 mx-auto md:grid-cols-3 lg:grid-cols-4">
+          <ProductCard2 />
+        </div>
+      </div>
     </>
   );
 };
