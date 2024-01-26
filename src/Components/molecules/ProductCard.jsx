@@ -4,7 +4,13 @@ import { useState, useEffect } from "react";
 import { UseCartData } from "../../stores/useCartData";
 import { useFavProducts } from "../../stores/useFavProducts";
 import { IconPlus } from "../../../public/icons";
+import { useFavorites } from "../../stores/fav";
 function ProductCard() {
+  const {addFavProduct,favProducts}=useFavorites()
+  favProducts
+  const btnAddFav =(productId)=>{
+    addFavProduct(productId)
+  }
   const { addProductToCart } = UseCartData((UseCart) => {
     return {
       addProductToCart: UseCart.addProductToCart,
@@ -13,17 +19,42 @@ function ProductCard() {
   const handleAddToCarts = (product) => {
     addProductToCart(product);
   };
-  const { addFavProduct, favProducts } = useFavProducts((UseFav) => {
-    return {
-      addFavProduct: UseFav.addFavProduct,
-      favProducts: UseFav.favProducts,
-    };
-  });
-  const handleFav = (product) => {
-    addFavProduct(product);
+  // const { addFavProduct, favProducts } = useFavProducts((UseFav) => {
+  //   return {
+  //     addFavProduct: UseFav.addFavProduct,
+  //     favProducts: UseFav.favProducts,
+  //   };
+  // });
+
+  const dataFav = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/v1/favorites/${userData.user_id}`,
+        {
+          credentials: 'include',
+        }
+      )
+      const data = await response.json();
+      const favoritesArray = data.favorites;
+      console.log(favoritesArray)
+      setFav(favoritesArray)
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
   };
-  const handleBothFunctions = (product) => {
-    handleFav(product);
+  const addFav = async (product) => {
+    try {
+      const response = await fetch("http://localhost:3000/api/v1/favorites", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          "product_id": product
+        }),
+        credentials: "include"
+      });
+      console.log(response)
+    } catch (error) {
+      console.error(error)
+    }
   };
   const [productList, setProductList] = useState([]);
 
@@ -39,6 +70,7 @@ function ProductCard() {
         setProductList(updatedProducts);
       });
     console.log(productList)
+    dataFav()
   }, []);
   return (
     <>
@@ -65,17 +97,17 @@ function ProductCard() {
                     </span>
                     <BtnAddProduct
                       className="absolute top-2 right-2 "
-                      onClick={() => handleBothFunctions(product)}
+                      onClick={() => addFav(product.id)}
                     >
                       <img
                         className="w-[26px] h-[26px]"
-                        src={
-                          favProducts.find(
-                            (fav) => fav.productName === product.name
-                          )
-                            ? "/images/svg/heart (2).png"
-                            : "/images/svg/heart (1).png"
-                        }
+                        // src={
+                        //   fav.find(
+                        //     (fav) => fav.id === product.id
+                        //   )
+                        //     ? "/images/svg/heart (2).png"
+                        //     : "/images/svg/heart (1).png"
+                        // }
                         alt=""
                       />
                     </BtnAddProduct>
