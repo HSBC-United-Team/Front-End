@@ -13,7 +13,7 @@ function MyProduct() {
 
   const getProducts = async () => {
     const response = await axios.get("http://localhost:3000/api/v1/products");
-    setProducts(response.data);
+    setProducts(response.data.products);
   };
   return (
     <>
