@@ -15,7 +15,7 @@ function MyProduct() {
     setProducts(response.data.products);
   };
 
-  // Masih error
+  // delete produk masih error
   const deleteProduct = async (productId) => {
     try {
       await axios.delete(
