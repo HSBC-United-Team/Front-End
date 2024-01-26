@@ -71,7 +71,7 @@ const CheckoutModal = ({
               >
                 Provinsi
               </label>
-              {/* <select
+              <select
                 name="state"
                 id="state"
                 className="mt-1 p-3 w-full border rounded-md bg-gray-100"
@@ -83,8 +83,8 @@ const CheckoutModal = ({
                     {province}
                   </option>
                 ))}
-              </select> */}
-              <select
+              </select>
+              {/* <select
                 name="state"
                 id="state"
                 className="mt-1 p-3 w-full border rounded-md bg-gray-100"
@@ -96,7 +96,7 @@ const CheckoutModal = ({
                     {province.province}
                   </option>
                 ))}
-              </select>
+              </select> */}
             </div>
             <div className="mt-4">
               <label

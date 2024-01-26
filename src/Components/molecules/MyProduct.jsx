@@ -10,11 +10,12 @@ function MyProduct() {
   useEffect(() => {
     getProducts();
   }, []);
-
   const getProducts = async () => {
     const response = await axios.get("http://localhost:3000/api/v1/products");
     setProducts(response.data.products);
   };
+  
+  console.log(products)
   return (
     <>
       {products.map((product) => (
@@ -23,7 +24,7 @@ function MyProduct() {
           key={product.id}
         >
           <div className="flex-none w-40 h-24 border-2 mx-2 rounded-lg">
-            <img className="max-h-full mx-auto" src={product.image} alt="" />
+            <img className="max-h-full mx-auto" src={product.image_url} alt="" />
           </div>
           <div className="flex flex-col mx-10 my-auto">
             <div>
