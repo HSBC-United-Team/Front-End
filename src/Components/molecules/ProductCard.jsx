@@ -4,13 +4,8 @@ import { useState, useEffect } from "react";
 import { UseCartData } from "../../stores/useCartData";
 import { useFavProducts } from "../../stores/useFavProducts";
 import { IconPlus } from "../../../public/icons";
-import { useFavorites } from "../../stores/fav";
 function ProductCard() {
-  const {addFavProduct,favProducts}=useFavorites()
-  favProducts
-  const btnAddFav =(productId)=>{
-    addFavProduct(productId)
-  }
+
   const { addProductToCart } = UseCartData((UseCart) => {
     return {
       addProductToCart: UseCart.addProductToCart,
