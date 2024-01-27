@@ -2,12 +2,9 @@ import { useEffect, useState } from "react";
 
 export const useCartState = () => {
   const [showModal, setShowModal] = useState(false);
-  // const [selectedProvince, setSelectedProvince] = useState("");
-  // const [selectedCity, setSelectedCity] = useState("");
   const [provinces, setProvinces] = useState([]);
   const [selectedProvince, setSelectedProvince] = useState('');
   const [selectedCity, setSelectedCity] = useState("");
-  // const [data,setData]=useState()
 
   const openModal = () => {
     setShowModal(true);
@@ -16,39 +13,6 @@ export const useCartState = () => {
   const closeModal = () => {
     setShowModal(false);
   };
-
-  // useEffect(() => {
-  //   const fetchProvinces = async () => {
-  //     try {
-  //       const response = await fetch('http://localhost:3000/province');
-  //       const dataa = await response.json();
-  //       const data=await dataa.rajaongkir.results
-  //       setProvinces(data);
-  //       setData(data)
-  //     } catch (error) {
-  //       console.error('Error fetching provinces:', error.message);
-  //     }
-  //   };
-
-  //   fetchProvinces();
-  // }, []);
-  // useEffect(() => {
-  //   const fetchCitiesByProvince = async () => {
-  //     if (selectedProvince) {
-  //       try {
-  //         const response = await fetch(`http://localhost:3000/city/${selectedProvince}`);
-  //         const data = await response.json();
-  //         setSelectedCity(data);
-          
-  //       } catch (error) {
-  //         console.error('Error fetching cities:', error.message);
-  //       }
-  //     }
-  //   };
-
-  //   fetchCitiesByProvince();
-  // }, [selectedProvince]);
-
 
   const data = {
     "DKI Jakarta": {
@@ -116,6 +80,7 @@ export const useCartState = () => {
     const selectedProvince = e.target.value;
     setSelectedProvince(selectedProvince);
     setSelectedCity("");
+    
   };
 
   const handleCityChange = (e) => {
