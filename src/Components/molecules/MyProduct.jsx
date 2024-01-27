@@ -19,16 +19,17 @@ function MyProduct() {
 
   // delete produk masih error
   const deleteProduct = async (productId) => {
-    try {
-      await axios.delete(
-        `http://localhost:3000/api/v1/products/${productId}
-      `,
-        { withCredentials: true }
-      );
-      getProducts();
-    } catch (error) {
-      console.log("Error Delete Product", error);
-    }
+    axios
+      .delete("http://localhost:3000/api/v1/products/" + productId, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        location.reload();
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
