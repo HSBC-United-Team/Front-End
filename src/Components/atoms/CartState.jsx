@@ -80,6 +80,7 @@ export const useCartState = () => {
     const selectedProvince = e.target.value;
     setSelectedProvince(selectedProvince);
     setSelectedCity("");
+    
   };
 
   const handleCityChange = (e) => {

@@ -4,8 +4,12 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { UseCartData } from "../../stores/useCartData";
 import axios from "axios";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const CheckoutModal = ({
+  total,
+  weight,
   showModal,
   closeModal,
   selectedProvince,
@@ -28,6 +32,55 @@ const CheckoutModal = ({
 
   const [totalBiaya, setTotalBiaya] = React.useState("");
 
+  const [namaPenerima, setNamaPenerima] = useState('');
+  const [alamat, setAlamat] = useState('');
+  const [prov, setProv] = useState('');
+  const [kota, setKota] = useState('');
+  const [pos, setPos] = useState('');
+  // const [total, setTotal] = useState('');
+  const [wight,setWeight] =useState('')
+  const [cartId,setCartId] =useState('')
+  const cart = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/v1/carts`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: "include",
+
+      })
+      const result = await response.json();
+      const inCart=result.carts.id
+      setCartId(inCart)
+      console.log(inCart)
+    } catch (error) {
+      console.error(error)
+    }
+
+  }
+  useEffect(() => {
+    cart()
+  }, []);
+  console.log(`cart dengan id ${cartId}`)
+
+  console.log(alamat, prov, kota, pos)
+  const handleAlamat=(event)=>{
+    setAlamat(event.target.value)
+  }
+  const handleProv=(event)=>{
+    setProv(event.target.value)
+    handleProvinceChange(event)
+  }
+  const handleKota=(event)=>{
+    setKota(event.target.value)
+    handleCityChange(event)
+  }
+  const handlePos=(event)=>{
+    setPos(event.target.value)
+  }
+  console.log("total belanja "+ total)
+  console.log("total weight "+ weight)
   const handlePesanClick = (e) => {
     e.preventDefault();
     const createOrder = async () => {
@@ -38,10 +91,10 @@ const CheckoutModal = ({
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            "shipping_address": "Bandung, Jawa Barat",
-            "total_price": 15,
-            "weight": 10,
-            "cart_id": 1
+            "shipping_address": alamat, kota, prov, pos,
+            "total_price": total,
+            "weight": weight,
+            "cart_id": cartId
           }),
           credentials: "include",
         });
@@ -53,10 +106,7 @@ const CheckoutModal = ({
         const responseData = await response.json();
         console.log('Order created successfully:', responseData);
       } catch (error) {
-        const responseData = await response.json();
-        console.error('Error creating order. Response:', response.status, response.statusText);
-        console.error(responseData);
-
+        console.error('Error creating order. Response:')
       }
     };
 
@@ -83,6 +133,7 @@ const CheckoutModal = ({
     setTotalBiaya(Number(value).toLocaleString("id-ID"));
   };
 
+
   return (
     showModal && (
       <div
@@ -107,7 +158,7 @@ const CheckoutModal = ({
                 id="state"
                 className="mt-1 p-3 w-full border rounded-md bg-gray-100"
                 value={selectedProvince}
-                onChange={handleProvinceChange}
+                onChange={handleProv}
               >
                 {Object.keys(data).map((province) => (
                   <option key={province} value={province}>
@@ -128,7 +179,7 @@ const CheckoutModal = ({
                 id="city"
                 className="mt-1 p-3 w-full border rounded-md bg-gray-100"
                 value={selectedCity}
-                onChange={handleCityChange}
+                onChange={handleKota}
               >
 
                 {selectedProvince &&
@@ -150,6 +201,7 @@ const CheckoutModal = ({
                 type="text"
                 name="zip"
                 id="zip"
+                onChange={handlePos}
                 className="mt-1 p-3 w-full border rounded-md bg-gray-100"
                 value={
                   selectedCity
@@ -170,6 +222,7 @@ const CheckoutModal = ({
               </label>
               <input
                 type="text"
+                onChange={handleAlamat}
                 name="alamatPenerima"
                 className="mt-1 p-3 w-full border rounded-md bg-gray-100"
               />
@@ -207,7 +260,8 @@ const CheckoutModal = ({
               </label>
               <div className="relative">
                 <span className="text-gray-700 absolute inset-y-0 left-0 flex items-center pl-3">
-                  ${totalPrice.toLocaleString().substring(0, 5)}
+                  {/* ${totalPrice.toLocaleString().substring(0, 5)} */}
+                  ${total}
                 </span>
                 <input
                   type="text"

@@ -22,12 +22,15 @@ function ProductCard() {
           body: JSON.stringify({
             "product_id": product.id,
             "quantity": 1,
-            "subtotal_price": product.price
+            "subtotal_price": parseFloat(product.price)
           }
+          
           ),
           credentials: "include",
 
         })
+        const result= await response.json()
+        console.log(result)
         console.log(response)
         console.log(`id ${product.id} price ${product.price}`)
       } catch (error) {
