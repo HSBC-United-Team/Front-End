@@ -82,7 +82,8 @@ function SignUpPage() {
         <div className="mr-auto pt-6">
           <BtnBack />
         </div>
-        <div className="background-container" />
+        {/* <div className="background-container" /> */}
+        <img src="../src/assets/background.jpeg" className="md:w-[80%] fixed md:-left-40 object-cover -z-10" alt="" />
         <div
           id="signup-section"
           className="signup-section fixed flex flex-col items-center justify-center mt-[100px]"
