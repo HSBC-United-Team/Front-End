@@ -49,24 +49,24 @@ function BodyAccount() {
             iconSrc: "public/images/svg/map.png",
             content: (
                 <div className="flex w-[70%] justify-around items-center bg-green-200 p-2">
-                    <p>ini konten</p>
+                    <p>Empty</p>
                 </div>
             )
         },
-        {
-            title: "Payment Method",
-            iconSrc: "public/images/svg/payment.png",
-        },
-        {
-            title: "Promo Card",
-            iconSrc: "public/images/svg/promo.png",
-        },
-        {
-            title: "Notification",
-            iconSrc: "public/images/svg/notif.png",
-        },
-        { title: "Help", iconSrc: "public/images/svg/help.png" },
-        { title: "About", iconSrc: "public/images/svg/about.png" },
+        // {
+        //     title: "Payment Method",
+        //     iconSrc: "public/images/svg/payment.png",
+        // },
+        // {
+        //     title: "Promo Card",
+        //     iconSrc: "public/images/svg/promo.png",
+        // },
+        // {
+        //     title: "Notification",
+        //     iconSrc: "public/images/svg/notif.png",
+        // },
+        // { title: "Help", iconSrc: "public/images/svg/help.png" },
+        // { title: "About", iconSrc: "public/images/svg/about.png" },
     ];
 
     const handleLogOut = () => {
@@ -81,7 +81,6 @@ function BodyAccount() {
         setShowContent((prevSelected) => (prevSelected === index ? null : index));
         setIsClicked((prevSelected) => (prevSelected === index ? null : index))
 
-        console.log(index)
     };
 
     return (

@@ -16,10 +16,10 @@ function Navbar() {
                         <IconShop />
                         Shop
                     </NavList>
-                    <NavList>
+                    {/* <NavList>
                         <IconExplore />
                         Explore
-                    </NavList>
+                    </NavList> */}
                     <NavList src={"/cart"}>
                         <IconCart />
                         Cart
