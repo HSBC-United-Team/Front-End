@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import DetailMyProduct from "./DetailMyProduct";
 import axios from "axios";
+import EditProductModal from "../organisms/EditProductModal";
 
 function MyProduct() {
   const [openModalProduct, setOpenModalProduct] = useState(false);
+  const [openModalEditProduct, setOpenModalEditProduct] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [products, setProducts] = useState([]);
 
@@ -31,7 +33,6 @@ function MyProduct() {
     }
   };
 
-  console.log(products);
   return (
     <>
       {products.map((product) => (
@@ -62,7 +63,13 @@ function MyProduct() {
             >
               View
             </button>
-            <button className="border-2 my-6 px-5 rounded-lg border-yellow-300 hover:bg-yellow-500 hover:text-white">
+            <button
+              className="border-2 my-6 px-5 rounded-lg border-yellow-300 hover:bg-yellow-500 hover:text-white"
+              onClick={() => {
+                setSelectedProduct(product);
+                setOpenModalEditProduct(true);
+              }}
+            >
               Edit
             </button>
             <button
@@ -81,6 +88,11 @@ function MyProduct() {
           setSelectedProduct(null);
           setOpenModalProduct(false);
         }}
+        selectedProduct={selectedProduct}
+      />
+      <EditProductModal
+        open={openModalEditProduct}
+        onClose={() => setOpenModalEditProduct(false)}
         selectedProduct={selectedProduct}
       />
     </>
