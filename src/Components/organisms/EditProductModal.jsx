@@ -1,41 +1,7 @@
-import React, { useState } from "react";
 import Heading from "../atoms/Heading";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
-const AddProductModal = ({ open, onClose }) => {
+const EditProductModal = ({ open, onClose, selectedProduct }) => {
   if (!open) return null;
-
-  const [name, setName] = useState("");
-  const [stock_level, setStocklevel] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [weight, setWeight] = useState("");
-  const [img_url, setImgUrl] = useState("");
-
-  const navigate = useNavigate();
-
-  const saveProduct = async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("stock_level", stock_level);
-    formData.append("description", description);
-    formData.append("price", price);
-    formData.append("weight", weight);
-    formData.append("img_url", img_url);
-    try {
-      await axios.post("http://localhost:3000/api/v1/products", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          credentials: "include",
-        },
-      });
-      navigate("/admin");
-    } catch (error) {
-      console.log("add product error", error);
-    }
-  };
 
   return (
     <>
@@ -47,8 +13,8 @@ const AddProductModal = ({ open, onClose }) => {
           >
             &times;
           </span>
-          <Heading>Create Product</Heading>
-          <form onSubmit={saveProduct}>
+          <Heading>Edit Product</Heading>
+          <form>
             <div className="mx-5">
               <div className="mb-4">
                 <label className="text-md font-semibold">Product Name</label>
@@ -56,8 +22,7 @@ const AddProductModal = ({ open, onClose }) => {
                   className="border rounded-lg w-full h-10 px-3"
                   type="text"
                   placeholder="Product Name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  value={selectedProduct.name}
                 />
               </div>
               <div className="mb-4">
@@ -66,8 +31,7 @@ const AddProductModal = ({ open, onClose }) => {
                   className="border rounded-lg w-full h-10 px-3"
                   type="text"
                   placeholder="Stock"
-                  value={stock_level}
-                  onChange={(e) => setStocklevel(e.target.value)}
+                  value={selectedProduct.stock_level}
                 />
               </div>
               <div className="mb-4">
@@ -76,8 +40,7 @@ const AddProductModal = ({ open, onClose }) => {
                   className="border rounded-lg w-full h-10 px-3"
                   type="text"
                   placeholder="Price"
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
+                  value={selectedProduct.price}
                 />
               </div>
               <div className="mb-4">
@@ -86,8 +49,7 @@ const AddProductModal = ({ open, onClose }) => {
                   className="border rounded-lg w-full h-10 px-3"
                   type="text"
                   placeholder="Weight"
-                  value={weight}
-                  onChange={(e) => setWeight(e.target.value)}
+                  value={selectedProduct.weight}
                 />
               </div>
               <div className="mb-4">
@@ -96,19 +58,13 @@ const AddProductModal = ({ open, onClose }) => {
                   className="border rounded-lg w-full h-10 px-3"
                   type="text"
                   placeholder="Description"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
+                  value={selectedProduct.description}
                 />
               </div>
               <div className="mb-4">
                 <label className="text-md font-semibold">Image</label>
                 <div>
-                  <input
-                    className=""
-                    type="file"
-                    value={img_url}
-                    onChange={(e) => setImgUrl(e.target.value)}
-                  />
+                  <input className="" type="file" />
                 </div>
               </div>
               <button
@@ -125,4 +81,4 @@ const AddProductModal = ({ open, onClose }) => {
   );
 };
 
-export default AddProductModal;
+export default EditProductModal;

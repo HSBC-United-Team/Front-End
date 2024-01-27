@@ -28,13 +28,7 @@ const DetailMyProduct = ({ open, onClose, selectedProduct }) => {
           </div>
           <div>
             <h2 className="font-medium pb-1">Description</h2>
-            <h3>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius
-              harum nesciunt labore dolore dicta corporis iusto id sit incidunt,
-              autem, magni fugiat maiores tenetur cumque alias dolorem ex
-              distinctio odio nihil, esse dolorum tempora? Earum modi illo ex
-              nisi doloribus.
-            </h3>
+            <h3>{selectedProduct.description}</h3>
           </div>
         </div>
       </div>
