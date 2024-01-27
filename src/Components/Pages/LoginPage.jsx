@@ -41,8 +41,10 @@ function LoginPage() {
       <div className="pt-6 md:ps-10">
         <BtnBack />
       </div>
-      <div className="background-container" />
+      <div className="" />
+      {/* <div className="background-container" /> */}
       <div className="container flex justify-center m-auto">
+        <img src="../src/assets/background.jpeg" className="md:w-[80%] fixed md:-left-40 object-cover" alt="" />
         <div
           id="login-section"
           className="login-section fixed flex flex-col items-center justify-center mt-[130px]"
