@@ -5,25 +5,75 @@ import { UseCartData } from "../../stores/useCartData";
 import { useFavProducts } from "../../stores/useFavProducts";
 import { IconPlus } from "../../../public/icons";
 function ProductCard() {
+
   const { addProductToCart } = UseCartData((UseCart) => {
     return {
       addProductToCart: UseCart.addProductToCart,
     };
   });
   const handleAddToCarts = (product) => {
-    addProductToCart(product);
+    const addCart = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/api/v1/carts`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            "product_id": product.id,
+            "quantity": 1,
+            "subtotal_price": parseFloat(product.price)
+          }
+          
+          ),
+          credentials: "include",
+
+        })
+        const result= await response.json()
+        console.log(result)
+        console.log(response)
+        console.log(`id ${product.id} price ${product.price}`)
+      } catch (error) {
+        console.error(error)
+      }
+
+    }
+    addCart()
+    // addProductToCart(product);
   };
-  const { addFavProduct, favProducts } = useFavProducts((UseFav) => {
-    return {
-      addFavProduct: UseFav.addFavProduct,
-      favProducts: UseFav.favProducts,
-    };
-  });
-  const handleFav = (product) => {
-    addFavProduct(product);
+  // const { addFavProduct, favProducts } = useFavProducts((UseFav) => {
+  //   return {
+  //     addFavProduct: UseFav.addFavProduct,
+  //     favProducts: UseFav.favProducts,
+  //   };
+  // });
+
+  const dataFav = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/v1/favorites/${userData.user_id}`,
+        {
+          credentials: 'include',
+        }
+      )
+      const data = await response.json();
+      const favoritesArray = data.favorites;
+      console.log(favoritesArray)
+      setFav(favoritesArray)
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
   };
-  const handleBothFunctions = (product) => {
-    handleFav(product);
+  const addFav = async (product) => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/v1/favorites/${product}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include"
+      });
+      console.log(response)
+    } catch (error) {
+      console.error(error)
+    }
   };
   const [productList, setProductList] = useState([]);
 
@@ -39,6 +89,7 @@ function ProductCard() {
         setProductList(updatedProducts);
       });
     console.log(productList)
+    dataFav()
   }, []);
   return (
     <>
@@ -52,7 +103,8 @@ function ProductCard() {
                 <button className="flex h-[55%] mx-auto my-auto">
                   <img
                     className="max-h-full mx-auto my-auto"
-                    src={product.image}
+                    src="/images/productPicture/apple.png"
+                    // src={product.image}
                     alt="Product Picture"
                   />
                 </button>
@@ -65,17 +117,18 @@ function ProductCard() {
                     </span>
                     <BtnAddProduct
                       className="absolute top-2 right-2 "
-                      onClick={() => handleBothFunctions(product)}
+                      onClick={() => addFav(product.id)}
                     >
                       <img
                         className="w-[26px] h-[26px]"
-                        src={
-                          favProducts.find(
-                            (fav) => fav.productName === product.name
-                          )
-                            ? "/images/svg/heart (2).png"
-                            : "/images/svg/heart (1).png"
-                        }
+                        src="/images/productPicture/apple.png"
+                        // src={
+                        //   fav.find(
+                        //     (fav) => fav.id === product.id
+                        //   )
+                        //     ? "/images/svg/heart (2).png"
+                        //     : "/images/svg/heart (1).png"
+                        // }
                         alt=""
                       />
                     </BtnAddProduct>
