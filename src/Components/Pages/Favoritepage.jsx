@@ -21,7 +21,7 @@ const Fav = () => {
 
     const dataFav = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/api/v1/favorites/${userData.user_id}`,
+            const response = await fetch(`http://localhost:3000/api/v1/favorites`,
                 {
                     credentials: 'include',
                 }
@@ -38,7 +38,7 @@ const Fav = () => {
     const handlerem = async (id) => {
         try {
             const response = await fetch(`http://localhost:3000/api/v1/favorites/${id}`, {
-                method: "DELETE",
+                method: "POST",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include"
             });
@@ -66,7 +66,7 @@ const Fav = () => {
                                 <div className="flex justify-between md:h-[114px] h-auto items-center  ">
                                     <div className="flex md:flex-row flex-col w-[60%]   justify-arround">
                                         <div className=" flex justify-center md:justify-start items-center">
-                                            <button onClick={() => handlerem(product.id)} className="mr-10 w-8 shrink-0">
+                                            <button onClick={() => handlerem(product.Product.id)} className="mr-10 w-8 shrink-0">
                                                 <img src="/images/svg/exit-full-screen.png" alt="" />
                                             </button>
                                             <img

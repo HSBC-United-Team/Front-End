@@ -3,6 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { UseCartData } from "../../stores/useCartData";
+import axios from "axios";
 
 const CheckoutModal = ({
   showModal,
@@ -29,7 +30,37 @@ const CheckoutModal = ({
 
   const handlePesanClick = (e) => {
     e.preventDefault();
+    const createOrder = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/api/v1/orders', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            "shipping_address": "Bandung, Jawa Barat",
+            "total_price": 15,
+            "weight": 10,
+            "cart_id": 1
+          }),
+          credentials: "include",
+        });
 
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const responseData = await response.json();
+        console.log('Order created successfully:', responseData);
+      } catch (error) {
+        const responseData = await response.json();
+        console.error('Error creating order. Response:', response.status, response.statusText);
+        console.error(responseData);
+
+      }
+    };
+
+    createOrder()
     Swal.fire({
       position: "center",
       icon: "success",
@@ -84,19 +115,6 @@ const CheckoutModal = ({
                   </option>
                 ))}
               </select>
-              {/* <select
-                name="state"
-                id="state"
-                className="mt-1 p-3 w-full border rounded-md bg-gray-100"
-                value={selectedProvince}
-                onChange={handleProvinceChange}
-              >
-                {data.map((province) => (
-                  <option key={province} value={province}>
-                    {province.province}
-                  </option>
-                ))}
-              </select> */}
             </div>
             <div className="mt-4">
               <label
@@ -120,21 +138,6 @@ const CheckoutModal = ({
                     </option>
                   ))}
               </select>
-              {/* <select
-                name="city"
-                id="city"
-                className="mt-1 p-3 w-full border rounded-md bg-gray-100"
-                value={selectedCity}
-                onChange={handleCityChange}
-              >
-
-                {selectedProvince &&
-                  data[selectedProvince].cities.map((city) => (
-                    <option key={city} value={city}>
-                      {city}
-                    </option>
-                  ))}
-              </select> */}
             </div>
             <div className="mt-4">
               <label

@@ -12,7 +12,31 @@ function ProductCard() {
     };
   });
   const handleAddToCarts = (product) => {
-    addProductToCart(product);
+    const addCart = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/api/v1/carts`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            "product_id": product.id,
+            "quantity": 1,
+            "subtotal_price": product.price
+          }
+          ),
+          credentials: "include",
+
+        })
+        console.log(response)
+        console.log(`id ${product.id} price ${product.price}`)
+      } catch (error) {
+        console.error(error)
+      }
+
+    }
+    addCart()
+    // addProductToCart(product);
   };
   // const { addFavProduct, favProducts } = useFavProducts((UseFav) => {
   //   return {
@@ -38,12 +62,9 @@ function ProductCard() {
   };
   const addFav = async (product) => {
     try {
-      const response = await fetch("http://localhost:3000/api/v1/favorites", {
+      const response = await fetch(`http://localhost:3000/api/v1/favorites/${product}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          "product_id": product
-        }),
         credentials: "include"
       });
       console.log(response)
@@ -79,7 +100,8 @@ function ProductCard() {
                 <button className="flex h-[55%] mx-auto my-auto">
                   <img
                     className="max-h-full mx-auto my-auto"
-                    src={product.image}
+                    src="/images/productPicture/apple.png"
+                    // src={product.image}
                     alt="Product Picture"
                   />
                 </button>
@@ -96,6 +118,7 @@ function ProductCard() {
                     >
                       <img
                         className="w-[26px] h-[26px]"
+                        src="/images/productPicture/apple.png"
                         // src={
                         //   fav.find(
                         //     (fav) => fav.id === product.id

@@ -3,8 +3,31 @@ import { Navbar2 } from "../organisms/Navbar2";
 import { UseCartData } from "../../stores/useCartData";
 import { useCartState } from "../atoms/CartState";
 import CheckoutModal from "../organisms/CheckoutModals";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 function Cart() {
+    const [cart,setCart]=useState([])
+    const getCart = async () => {
+        try {
+          const response = await fetch(`http://localhost:3000/api/v1/carts`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            credentials: "include",
+  
+          })
+          const result = await response.json();
+          const inCart=result.carts.Products
+          setCart(inCart)
+          console.log(result.carts.Products)
+        } catch (error) {
+          console.error(error)
+        }
+  
+      }
+      useEffect(() => {
+        getCart()
+      }, []);
     const {
         showModal,
         openModal,
@@ -28,7 +51,7 @@ function Cart() {
         decreaseProductAmount: state.decreaseProductAmount,
         removeProductInCart: state.removeProductInCart,
     }));
-    const productsWithTotalPrice = cartData.map((product) => {
+    const productsWithTotalPrice = cart.map((product) => {
         const totalPrice = parseFloat(product.productPrice) * product.productAmount;
         return { ...product, totalPrice };
     })
