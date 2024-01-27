@@ -3,8 +3,13 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { UseCartData } from "../../stores/useCartData";
+import axios from "axios";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const CheckoutModal = ({
+  total,
+  weight,
   showModal,
   closeModal,
   selectedProvince,
@@ -27,9 +32,85 @@ const CheckoutModal = ({
 
   const [totalBiaya, setTotalBiaya] = React.useState("");
 
+  const [namaPenerima, setNamaPenerima] = useState('');
+  const [alamat, setAlamat] = useState('');
+  const [prov, setProv] = useState('');
+  const [kota, setKota] = useState('');
+  const [pos, setPos] = useState('');
+  // const [total, setTotal] = useState('');
+  const [wight,setWeight] =useState('')
+  const [cartId,setCartId] =useState('')
+  const cart = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/v1/carts`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: "include",
+
+      })
+      const result = await response.json();
+      const inCart=result.carts.id
+      setCartId(inCart)
+      console.log(inCart)
+    } catch (error) {
+      console.error(error)
+    }
+
+  }
+  useEffect(() => {
+    cart()
+  }, []);
+  console.log(`cart dengan id ${cartId}`)
+
+  console.log(alamat, prov, kota, pos)
+  const handleAlamat=(event)=>{
+    setAlamat(event.target.value)
+  }
+  const handleProv=(event)=>{
+    setProv(event.target.value)
+    handleProvinceChange(event)
+  }
+  const handleKota=(event)=>{
+    setKota(event.target.value)
+    handleCityChange(event)
+  }
+  const handlePos=(event)=>{
+    setPos(event.target.value)
+  }
+  console.log("total belanja "+ total)
+  console.log("total weight "+ weight)
   const handlePesanClick = (e) => {
     e.preventDefault();
+    const createOrder = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/api/v1/orders', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            "shipping_address": alamat, kota, prov, pos,
+            "total_price": total,
+            "weight": weight,
+            "cart_id": cartId
+          }),
+          credentials: "include",
+        });
 
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const responseData = await response.json();
+        console.log('Order created successfully:', responseData);
+      } catch (error) {
+        console.error('Error creating order. Response:')
+      }
+    };
+
+    createOrder()
     Swal.fire({
       position: "center",
       icon: "success",
@@ -51,6 +132,7 @@ const CheckoutModal = ({
     const value = e.target.value.replace(/\D/g, "");
     setTotalBiaya(Number(value).toLocaleString("id-ID"));
   };
+
 
   return (
     showModal && (
@@ -76,7 +158,7 @@ const CheckoutModal = ({
                 id="state"
                 className="mt-1 p-3 w-full border rounded-md bg-gray-100"
                 value={selectedProvince}
-                onChange={handleProvinceChange}
+                onChange={handleProv}
               >
                 {Object.keys(data).map((province) => (
                   <option key={province} value={province}>
@@ -84,19 +166,6 @@ const CheckoutModal = ({
                   </option>
                 ))}
               </select>
-              {/* <select
-                name="state"
-                id="state"
-                className="mt-1 p-3 w-full border rounded-md bg-gray-100"
-                value={selectedProvince}
-                onChange={handleProvinceChange}
-              >
-                {data.map((province) => (
-                  <option key={province} value={province}>
-                    {province.province}
-                  </option>
-                ))}
-              </select> */}
             </div>
             <div className="mt-4">
               <label
@@ -110,7 +179,7 @@ const CheckoutModal = ({
                 id="city"
                 className="mt-1 p-3 w-full border rounded-md bg-gray-100"
                 value={selectedCity}
-                onChange={handleCityChange}
+                onChange={handleKota}
               >
 
                 {selectedProvince &&
@@ -120,21 +189,6 @@ const CheckoutModal = ({
                     </option>
                   ))}
               </select>
-              {/* <select
-                name="city"
-                id="city"
-                className="mt-1 p-3 w-full border rounded-md bg-gray-100"
-                value={selectedCity}
-                onChange={handleCityChange}
-              >
-
-                {selectedProvince &&
-                  data[selectedProvince].cities.map((city) => (
-                    <option key={city} value={city}>
-                      {city}
-                    </option>
-                  ))}
-              </select> */}
             </div>
             <div className="mt-4">
               <label
@@ -147,6 +201,7 @@ const CheckoutModal = ({
                 type="text"
                 name="zip"
                 id="zip"
+                onChange={handlePos}
                 className="mt-1 p-3 w-full border rounded-md bg-gray-100"
                 value={
                   selectedCity
@@ -167,6 +222,7 @@ const CheckoutModal = ({
               </label>
               <input
                 type="text"
+                onChange={handleAlamat}
                 name="alamatPenerima"
                 className="mt-1 p-3 w-full border rounded-md bg-gray-100"
               />
@@ -204,7 +260,8 @@ const CheckoutModal = ({
               </label>
               <div className="relative">
                 <span className="text-gray-700 absolute inset-y-0 left-0 flex items-center pl-3">
-                  ${totalPrice.toLocaleString().substring(0, 5)}
+                  {/* ${totalPrice.toLocaleString().substring(0, 5)} */}
+                  ${total}
                 </span>
                 <input
                   type="text"
