@@ -45,10 +45,15 @@ const MySales = () => {
     useEffect(() => {
       const fetchdata = async () => {
         try {
-          const response = await fetch("https://dummyjson.com/products");
+          const response = await fetch("http://localhost:3000/api/v1/orders",
+          {credentials: "include"}
+          );
           const result = await response.json();
-          console.log(result.products);
-          setData(result.products);
+          const orders=result.orders
+          const filteredOrders = orders.filter(order => order.order_status === "pending");
+        // setProdIds(filteredOrders);
+          console.log(result.orders);
+          setData(filteredOrders);
         } catch (error) {
           console.error("error fetching data");
         }
@@ -66,10 +71,16 @@ const MySales = () => {
             key={index}
           >
             {/* <div className="flex justify-evenly" key={index}> */}
-            <div className="flex justify-center">
-              <img src={poto.thumbnail} className="h-12 w-12" />
+            <div className="flex flex-col items-center">
+              {/* <img src={poto.img_url} className="h-12 w-12" /> */}
+              <p>Order id: </p>
+              <p> {poto.id}</p>
             </div>
-            <p>{poto.title}</p>
+            <div className="flex flex-col items-center">
+            <p>Address</p>
+            <p>{poto.shipping_address}</p>
+
+            </div>
             <div className="flex justify-center gap-2">
               <button
                 className="p-2 text-white font-semibold border rounded-lg bg-green-500"
@@ -92,6 +103,24 @@ const MySales = () => {
     );
   };
   const Berjalan = () => {
+    const [data, setData] = useState(null);
+    useEffect(() => {
+      const fetchdata = async () => {
+        try {
+          const response = await fetch("http://localhost:3000/api/v1/orders",
+          {credentials: "include"}
+          );
+          const result = await response.json();
+          const orders=result.orders
+          const filteredOrders = orders.filter(order => order.order_status === "shipped");
+          console.log(result.orders);
+          setData(filteredOrders);
+        } catch (error) {
+          console.error("error fetching data");
+        }
+      };
+      fetchdata();
+    }, []);
     return (
       <div className="flex justify-around p-3">
         {/* <div className="flex justify-around p-3"> */}

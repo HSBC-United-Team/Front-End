@@ -121,14 +121,14 @@ function ProductCard() {
                     >
                       <img
                         className="w-[26px] h-[26px]"
-                        src="/images/productPicture/apple.png"
-                        // src={
-                        //   fav.find(
-                        //     (fav) => fav.id === product.id
-                        //   )
-                        //     ? "/images/svg/heart (2).png"
-                        //     : "/images/svg/heart (1).png"
-                        // }
+                        // src="/images/productPicture/apple.png"
+                        src={"/images/svg/heart (1).png"
+                          // fav.find(
+                          //   (fav) => fav.id === product.id
+                          // )
+                          //   ? "/images/svg/heart (2).png"
+                          //   : "/images/svg/heart (1).png"
+                        }
                         alt=""
                       />
                     </BtnAddProduct>
