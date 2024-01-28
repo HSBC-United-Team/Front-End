@@ -1,6 +1,9 @@
 import Logo from "../molecules/Logo";
 import Navbar from "./Navbar";
 import SearchBox from "../molecules/SearchBox";
+import BtnAddProduct from "../atoms/BtnAddProdcut";
+import LogoutButton from "../atoms/LogOutButton";
+import Heading from "../atoms/Heading";
 
 function Header() {
   return (
