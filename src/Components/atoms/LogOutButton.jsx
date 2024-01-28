@@ -1,11 +1,11 @@
 
 import React from 'react';
 
-function LogoutButton({ onClick }) {
+function LogoutButton({ onClick, className  }) {
   return (
     <button
       id="btnLogOut"
-      className="bg-[#F2F3F2] w-full h-16 rounded-3xl flex items-center justify-center gap-4 hover:bg-gray-200 focus:outline-none focus:ring focus:border-blue-300"
+      className={`bg-[#F2F3F2] w-full ${className} h-16 rounded-3xl flex items-center justify-center gap-4 hover:bg-gray-200 focus:outline-none focus:ring focus:border-blue-300`}
       onClick={onClick}
     >
       <img src="../../src/img/svg/logout.png" alt="" />

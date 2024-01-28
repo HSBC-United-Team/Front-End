@@ -1,8 +1,8 @@
-function Heading({children}) {
+function Heading({children,className}) {
     
     return (
         <div className="flex">
-            <h1 className="font-semibold text-[24px]">{children}</h1>
+            <h1 className={`font-semibold text-[24px] ${className}`}>{children}</h1>
         </div>
     );
 }

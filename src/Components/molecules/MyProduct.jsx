@@ -42,7 +42,7 @@ function MyProduct() {
           <div className="flex-none w-40 h-24 border-2 mx-2 rounded-lg">
             <img
               className="max-h-full mx-auto"
-              src={product.image_url}
+              src={product.img_url}
               alt=""
             />
           </div>

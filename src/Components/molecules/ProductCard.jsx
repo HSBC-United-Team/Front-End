@@ -103,8 +103,8 @@ function ProductCard() {
                 <button className="flex h-[55%] mx-auto my-auto">
                   <img
                     className="max-h-full mx-auto my-auto"
-                    src="/images/productPicture/apple.png"
-                    // src={product.image}
+                    // src="/images/productPicture/apple.png"
+                    src={product.img_url}
                     alt="Product Picture"
                   />
                 </button>
